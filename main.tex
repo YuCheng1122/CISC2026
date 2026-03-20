@@ -87,7 +87,13 @@
 % ============================
 \section{前言}
 
-隨著物聯網（IoT）裝置的普及，運行於 ARM、MIPS、x86 等不同架構上的惡意軟體數量持續增加，傳統針對單一架構設計之惡意軟體分析方法面臨嚴峻挑戰。本文介紹研究背景與問題定義，說明跨架構分析之必要性，並概述本文架構。
+物聯網（IoT）生態系統正快速擴張，全球連網裝置數量於 2025 年已達 211 億，預計 2030 年將突破 400 億\cite{sinha2024iot}。這些裝置廣泛運行於 x86、ARM、MIPS 等異質指令集架構（ISA），且往往受限於硬體資源而缺乏完善的安全防護，成為攻擊者鎖定的目標。IoT 裝置遭受的攻擊事件從 2018 年的 3,270 萬次急升至 2022 年的 1.1229 億次\cite{petrosyan2024statista}，資安威脅日益嚴峻。
+
+面對多架構環境，現有惡意軟體分析方法大多針對單一架構設計，無法直接套用至其他平台。由於各架構之特定樣本數量有限，跨架構偵測面臨嚴重的資料不均衡問題。常見的解決方案包括以可印字串（Printable String）\cite{lee2020cross}、中間表示（Intermediate Representation）\cite{phu2019cfdvex,rahat2024cimalir}或屬性控制流程圖（Attributed CFG）\cite{feng2016scalable,yu2023cfg2vec}作為架構無關特徵，並結合對比式學習\cite{redmond2018cross,wang2023retargeted,wang2024learning}或遷移學習等方法，將豐富的常見架構樣本知識遷移至資源稀少之架構。
+
+在中間表示的選擇上，IDA Pro Microcode\cite{rays2021idapro}、Angr VexIR\cite{angr2026}與 Ghidra P-Code\cite{ghidra2023pcode} 均為主流方案。其中，Ghidra 為美國國家安全局（NSA）開發之開源逆向工程工具，其 P-Code 中間語言能將多種架構之機器碼統一轉譯為一致之高階表示，有效縮減架構間的語法差異，為跨架構分析提供共同的語意基礎\cite{naus2022formal}。
+
+本研究以 Ghidra P-Code 作為架構無關之中介表示，提出結合預訓練語言模型（PLM）與圖神經網路（GNN）之跨架構 IoT 惡意軟體偵測框架。預訓練語言模型負責對 P-Code 指令序列進行語意編碼，圖神經網路則建模函式呼叫圖（Call Graph）之結構特徵，兩者協同捕捉跨架構惡意軟體的語意與拓樸資訊，以提升偵測準確率。
 
 % ============================
 % 1.1 動機

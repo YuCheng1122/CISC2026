@@ -36,6 +36,7 @@
 \usepackage[noend]{algpseudocode}
 \usepackage{booktabs}
 \usepackage{multicol}
+\usepackage{url}
 
 \lstdefinestyle{cstyle}{
   basicstyle=\ttfamily\fontsize{7pt}{9pt}\selectfont,
@@ -169,56 +170,7 @@ Ghidra\cite{ghidra2026repo} 為 NSA 開發之開源逆向工程工具，其 P-Co
 
 \begin{figure}[h]
 \centering
-\begin{minipage}[t]{0.48\columnwidth}
-\begin{lstlisting}[style=cstyle, caption={(a) C 原始碼}, label={}]
-int sum(int a, int b){
-  return a + b;
-}
-\end{lstlisting}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\columnwidth}
-\begin{lstlisting}[style=asmstyle, caption={(b) MIPS 組合語言}, label={}]
-addiu $v0,$a0,$a1
-jr    $ra
-nop
-\end{lstlisting}
-\end{minipage}
-
-\vspace{2pt}
-
-\begin{minipage}[t]{0.48\columnwidth}
-\begin{lstlisting}[style=asmstyle, caption={(c) ARM 組合語言}, label={}]
-ADD  r0, r0, r1
-BX   lr
-\end{lstlisting}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\columnwidth}
-\begin{lstlisting}[style=pcodestyle, caption={(d) Low P-Code (MIPS)}, label={}]
-$v0 = INT_ADD $a0, $a1
-RETURN (ram,0x0,4)
-\end{lstlisting}
-\end{minipage}
-
-\vspace{2pt}
-
-\begin{minipage}[t]{0.48\columnwidth}
-\begin{lstlisting}[style=pcodestyle, caption={(e) Low P-Code (ARM)}, label={}]
-r0 = INT_ADD r0, r1
-RETURN (ram,0x0,4)
-\end{lstlisting}
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.48\columnwidth}
-\begin{lstlisting}[style=pcodestyle, caption={(f) High P-Code (兩架構一致)}, label={}]
-param1 = COPY (const,0,4)
-param2 = COPY (const,0,4)
-ret    = INT_ADD param1,param2
-RETURN ret
-\end{lstlisting}
-\end{minipage}
-
+\includegraphics[width=\columnwidth]{fig/high_pcode.png}
 \caption{同一 C 函式在 MIPS 與 ARM 架構下，從組合語言經 Low P-Code 轉換為 High P-Code 之過程。High P-Code 消除了架構間的語法差異，使語意等價函式趨於一致表示。}
 \label{fig:pcode}
 \end{figure}
@@ -229,7 +181,21 @@ RETURN ret
 % ============================
 \section{方法}
 
-本節介紹所提方法之整體架構，包含預訓練語言模型、圖神經網路與對比式學習三個主要模組。
+本節介紹所提方法之整體架構，包含預訓練語言模型、圖神經網路與對比式學習三個主要模組。圖~\ref{fig:method} 為整體框架概覽，圖~\ref{fig:feature} 為特徵抽取流程。
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{fig/overview_feature_extraction.png}
+\caption{特徵抽取流程：從 ELF 二進位檔經 Ghidra 轉換為 High P-Code，再進行正規化與嵌入。}
+\label{fig:feature}
+\end{figure}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{fig/overview_method.png}
+\caption{所提跨架構惡意軟體偵測框架整體架構概覽。}
+\label{fig:method}
+\end{figure*}
 
 % ============================
 % 3.1 預訓練語言模型
@@ -258,32 +224,53 @@ RETURN ret
 % ============================
 \section{實驗}
 
-% ============================
-% 4.1 資料集
-% ============================
-\subsection{資料集}
-
-本研究使用以下資料集進行實驗評估：（一）XXX 資料集，包含 X 種架構共 X 個樣本；（二）XXX 資料集，涵蓋 X 個惡意軟體家族。各資料集之詳細統計資訊如表~\ref{tab:dataset} 所示。
-
-% \begin{table}[h]
-% \centering
-% \caption{資料集統計}
-% \label{tab:dataset}
-% \begin{tabular}{lccc}
-% \hline
-% 資料集 & 架構數 & 樣本數 & 家族數 \\
-% \hline
-% XXX & - & - & - \\
-% \hline
-% \end{tabular}
-% \end{table}
+在研究的實驗階段，我們將提出的方法與其他跨架構惡意軟體分析論文進行比較，並使用少量標記資料訓練經典的機器學習模型作為基準。同時，我們也針對不同的詞向量方法與圖神經網路架構進行消融比較。
 
 % ============================
-% 4.2 實驗設置
+% 4.1 實驗設置
 % ============================
 \subsection{實驗設置}
 
-實驗環境為 XXX GPU，作業系統為 Ubuntu 22.04。模型訓練採用 AdamW 優化器，學習率為 1e-4，批次大小為 32，訓練輪數為 50。資料集依 8:1:1 比例分割為訓練集、驗證集與測試集。
+實驗環境為配備 NVIDIA GeForce RTX 5070 Ti（顯存 16,303 MiB）之工作站，作業系統為 Ubuntu 24.04.3 LTS，CUDA 版本 13.0。
+
+\textbf{預訓練語言模型（RoBERTa）：}採用 6 層 Transformer 架構，隱藏維度 256，8 個注意力頭，前饋層維度 1024，最大序列長度 512。以遮罩語言模型（MLM）任務預訓練，遮罩比例 15\%，Adam 優化器，學習率 1e-4，Warmup 10,000 步，線性排程器，批次大小 64，訓練 100 個 epoch。
+
+\textbf{圖卷積網路（GCN）：}採用 2 層架構，隱藏維度 256，Dropout 0.2，加法池化（Add Pooling）。Adam 優化器，學習率 0.001，批次大小 32，最多訓練 200 個 epoch，Early Stopping（patience=15），損失函式為 Cross Entropy。
+
+
+% ============================
+% 4.2 資料集
+% ============================
+\subsection{資料集}
+
+本研究收集涵蓋 ARM-32、ARM-64、Intel i386、MIPS、PowerPC（PPC）及 AMD x86-64 共六種架構之 IoT 惡意軟體樣本。所有樣本透過 VirusTotal\cite{virustotal2026} 進行多引擎掃描，並以 AVClass\cite{sebastianmilanesinovic2016avclass} 自動化工具統一標記惡意軟體家族，最終涵蓋十個家族，原始資料集共 36,078 個樣本，詳細分布如表~\ref{tab:dataset} 所示。
+
+在前處理階段，我們首先移除加殼樣本，因打包技術會掩蓋惡意軟體的固有特徵並扭曲分類結果；其次移除重複樣本，以防止訓練與測試階段之間發生資料洩漏。此外，部分二進位檔因逆向工程失敗而被排除：逾時 245 筆、節區格式錯誤 1,432 筆、無邊 1,017 筆、空節點 72 筆，共計移除 2,766 筆。最終有效資料集共 33,312 個樣本。
+
+\begin{table*}[t]
+\centering
+\caption{原始資料集各惡意軟體家族與架構之樣本數分布}
+\label{tab:dataset}
+\fontsize{8.5pt}{11pt}\selectfont
+\begin{tabular}{lrrrrrrr}
+\toprule
+\textbf{Family} & \textbf{ARM-32} & \textbf{ARM-64} & \textbf{Intel} & \textbf{MIPS} & \textbf{PPC} & \textbf{x86\_64} & \textbf{Total} \\
+\midrule
+mirai       & 1,062 & 338 & 1,097 & 1,778 & 3,222 & 1,216 & 8,713 \\
+gafgyt      & 1,062 &  23 & 1,098 & 1,779 & 3,223 & 1,216 & 8,401 \\
+tsunami     & 1,063 &  25 & 1,098 & 1,711 &   530 & 1,216 & 5,643 \\
+mobidash    & 1,063 & 284 & 1,098 &   307 &     0 & 1,216 & 3,968 \\
+dofloo      & 1,063 &   0 & 1,098 &   365 &     0 &   130 & 2,656 \\
+kaiji       &   762 & 187 &   464 &   619 &     0 &   429 & 2,461 \\
+meterpreter &   138 &  46 &   604 &    49 &    24 & 1,195 & 2,056 \\
+wroba       &   469 &  86 &   286 &   232 &     0 &    79 & 1,152 \\
+fakebank    &   217 & 108 &    51 &    52 &     0 &    89 &   517 \\
+dnsamp      &    95 &   0 &    99 &   107 &     0 &   210 &   511 \\
+\midrule
+\textbf{Total} & \textbf{6,994} & \textbf{1,097} & \textbf{6,993} & \textbf{6,999} & \textbf{6,999} & \textbf{6,996} & \textbf{36,078} \\
+\bottomrule
+\end{tabular}
+\end{table*}
 
 % ============================
 % 4.3 基準方法
@@ -329,7 +316,7 @@ RETURN ret
 本文提出一種結合 Ghidra P-Code 中間語言、預訓練語言模型、圖神經網路與對比式學習之跨架構惡意軟體分析框架。透過將不同架構之程式碼統一轉譯為 P-Code，有效消除架構差異；並藉由深度學習模型同時建模語意與結構特徵，提升跨架構偵測能力。未來工作將探索更大規模預訓練模型之應用，以及動態分析特徵之整合。
 
 
-\bibliography{IEEEabrv,reference}
+\bibliography{reference}
 \bibliographystyle{abbrv}
 
 \end{CJK*}

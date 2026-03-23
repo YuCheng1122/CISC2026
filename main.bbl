@@ -1,0 +1,137 @@
+\begin{thebibliography}{10}
+
+\bibitem{angr2026}
+Angr.
+\newblock angr documentation.
+\newblock [Online]. Available:
+  \url{https://docs.angr.io/en/latest/advanced-topics/ir.html}, 2026.
+\newblock Accessed: Feb. 2026.
+
+\bibitem{feng2016scalable}
+Q.~Feng et~al.
+\newblock Scalable graph-based bug search for firmware images.
+\newblock In {\em Proc. ACM SIGSAC Conf. Computer and Communications Security
+  (CCS)}, pages 480--491, 2016.
+
+\bibitem{ghidra2023pcode}
+Ghidra.
+\newblock {P-Code} reference manual.
+\newblock [Online]. Available:
+  \url{https://ghidra.re/ghidra_docs/languages/html/pcoderef.html}, 2023.
+\newblock Accessed: Feb. 2026.
+
+\bibitem{kim2022revisiting}
+D.~Kim et~al.
+\newblock Revisiting binary code similarity analysis using interpretable
+  feature engineering and lessons learned.
+\newblock {\em IEEE Transactions on Software Engineering}, 49(4):1661--1682,
+  2022.
+
+\bibitem{lee2020cross}
+Y.-T. Lee et~al.
+\newblock Cross platform {IoT}-malware family classification based on printable
+  strings.
+\newblock In {\em Proc. IEEE 19th Int. Conf. Trust, Security and Privacy in
+  Computing and Communications (TrustCom)}, pages 775--784, 2020.
+
+\bibitem{lin2025cross}
+Y.-C. Lin et~al.
+\newblock Cross-architecture {IoT} malware analysis using {P-Code} intermediate
+  representation.
+\newblock In {\em Proc. Workshop on Recent Advances in Resilient and
+  Trustworthy MAchine learning-driveN Systems (RTMAN)}, pages 45--50, 2025.
+
+\bibitem{luo2023vulhawk}
+Z.~Luo et~al.
+\newblock {VulHawk}: Cross-architecture vulnerability detection with
+  entropy-based binary code search.
+\newblock In {\em Proc. NDSS}, 2023.
+
+\bibitem{ghidra2026repo}
+{National Security Agency}.
+\newblock Ghidra.
+\newblock [Online]. Available:
+  \url{https://github.com/NationalSecurityAgency/ghidra}.
+\newblock Accessed: Feb. 2026.
+
+\bibitem{naus2022formal}
+N.~Naus et~al.
+\newblock A formal semantics for {P-Code}.
+\newblock In {\em Working Conf. Verified Software: Theories, Tools, and
+  Experiments}, pages 111--128. Springer, 2022.
+
+\bibitem{petrosyan2024statista}
+A.~Petrosyan.
+\newblock Distribution of cyberattacks across worldwide industries in 2023.
+\newblock Statista. [Online]. Available:
+  \url{https://www.statista.com/statistics/1315805/cyber-attacks-top-industries-worldwide/},
+  2024.
+\newblock Accessed: Feb. 2026.
+
+\bibitem{phu2019cfdvex}
+T.~N. Phu et~al.
+\newblock {CFDVex}: A novel feature extraction method for detecting
+  cross-architecture {IoT} malware.
+\newblock In {\em Proc. 10th Int. Symp. Information and Communication
+  Technology}, pages 248--254, 2019.
+
+\bibitem{qureshi2024systematic}
+S.~U. Qureshi, J.~He, S.~Tunio, N.~Zhu, A.~Nazir, A.~Wajahat, F.~Ullah, and
+  A.~Wadud.
+\newblock Systematic review of deep learning solutions for malware detection
+  and forensic analysis in {IoT}.
+\newblock {\em Journal of King Saud University - Computer and Information
+  Sciences}, page 102164, 2024.
+
+\bibitem{rahat2024cimalir}
+M.~A. Rahat et~al.
+\newblock {CIMALiR}: Cross-platform {IoT} malware clustering using intermediate
+  representation.
+\newblock In {\em Proc. IEEE 14th Annual Computing and Communication Workshop
+  and Conference (CCWC)}, pages 0460--0466, 2024.
+
+\bibitem{raju2021survey}
+A.~D. Raju, I.~Y. Abualhaol, R.~S. Giagone, Y.~Zhou, and S.~Huang.
+\newblock A survey on cross-architectural {IoT} malware threat hunting.
+\newblock {\em IEEE Access}, 9:91686--91709, 2021.
+
+\bibitem{rays2021idapro}
+H.~Rays.
+\newblock {IDA Pro}.
+\newblock [Online]. Available: \url{https://www.hex-rays.com/products/ida/},
+  May 2021.
+
+\bibitem{sebastianmilanesinovic2016avclass}
+M.~Sebasti\'{a}n, R.~Rivera, P.~Kotzias, and J.~Caballero.
+\newblock {AVClass}: A tool for massive malware labeling.
+\newblock In {\em Proc. Int. Symp. Research in Attacks, Intrusions, and
+  Defenses (RAID)}, pages 230--253, 2016.
+
+\bibitem{sinha2024iot}
+S.~Sinha.
+\newblock State of {IoT} 2025: Number of connected {IoT} devices growing 14\%
+  to 21.1 billion globally.
+\newblock [Online]. Available:
+  \url{https://iot-analytics.com/number-connected-iot-devices/}, 2024.
+\newblock Accessed: Feb. 2026.
+
+\bibitem{virustotal2026}
+{VirusTotal}.
+\newblock {VirusTotal} -- free online virus, malware and url scanner.
+\newblock [Online]. Available: \url{https://www.virustotal.com}.
+\newblock Accessed: Mar. 2026.
+
+\bibitem{wang2023retargeted}
+J.~Wang et~al.
+\newblock Can a deep learning model for one architecture be used for others?
+  {Retargeted-Architecture} binary code analysis.
+\newblock In {\em Proc. 32nd USENIX Security Symp.}, pages 7339--7356, 2023.
+
+\bibitem{yu2023cfg2vec}
+S.-Y. Yu et~al.
+\newblock {Cfg2vec}: Hierarchical graph neural network for cross-architectural
+  software reverse engineering.
+\newblock In {\em Proc. IEEE/ACM 45th Int. Conf. Software Engineering: Software
+  Engineering in Practice (ICSE-SEIP)}, pages 281--291, 2023.
+
+\end{thebibliography}

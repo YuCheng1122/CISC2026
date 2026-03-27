@@ -25,7 +25,12 @@
 \citation{raju2021survey}
 \citation{feng2016scalable}
 \citation{yu2023cfg2vec}
+\citation{vasan2020mthael}
+\citation{chaganti2022deep}
+\citation{ravi2022attention}
+\citation{redmond2018cross}
 \citation{wang2023retargeted}
+\citation{wang2024learning}
 \citation{luo2023vulhawk}
 \citation{phu2019cfdvex}
 \citation{rahat2024cimalir}
@@ -41,13 +46,11 @@
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
 \newlabel{fig:pcode}{{1}{2}{中間語言 Ghidra P-Code}{}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.}方法}{2}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces 特徵抽取流程：從 ELF 二進位檔經 Ghidra 轉換為 High P-Code，再進行正規化與嵌入。}}{2}{}\protected@file@percent }
-\newlabel{fig:feature}{{2}{2}{方法}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}預訓練語言模型}{2}{}\protected@file@percent }
 \citation{virustotal2026}
 \citation{sebastianmilanesinovic2016avclass}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces 所提跨架構惡意軟體偵測框架整體架構概覽。}}{3}{}\protected@file@percent }
-\newlabel{fig:method}{{3}{3}{方法}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces 特徵抽取流程：從 ELF 二進位檔經 Ghidra 轉換為 High P-Code，再進行正規化與嵌入。}}{3}{}\protected@file@percent }
+\newlabel{fig:feature}{{2}{3}{方法}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}預訓練語言模型}{3}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2}圖神經網路}{3}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}對比式學習}{3}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4.}實驗}{3}{}\protected@file@percent }
@@ -55,34 +58,43 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2}資料集}{3}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}實驗資料切割}{3}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}單架構分類}{3}{}\protected@file@percent }
-\bibdata{reference}
-\bibcite{angr2026}{1}
-\bibcite{feng2016scalable}{2}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces 所提跨架構惡意軟體偵測框架整體架構概覽。}}{4}{}\protected@file@percent }
+\newlabel{fig:method}{{3}{4}{方法}{}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces 實驗資料集各惡意軟體家族與架構之樣本數分布}}{4}{}\protected@file@percent }
 \newlabel{tab:dataset}{{1}{4}{資料集}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 各架構下函式節點 P-Code token 長度之分布。粗體數字為 max\_length=256 時的覆蓋率；設定 max\_length=512 可進一步涵蓋幾乎所有函式。}}{4}{}\protected@file@percent }
+\newlabel{fig:token_coverage}{{4}{4}{預訓練語言模型}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}跨架構遷移學習比較}{4}{}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces 跨架構實驗資料集各家族樣本數分布}}{4}{}\protected@file@percent }
 \newlabel{tab:exp-dataset}{{2}{4}{實驗資料切割}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}跨架構遷移學習比較}{4}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.}結論}{4}{}\protected@file@percent }
-\bibcite{ghidra2023pcode}{3}
-\bibcite{kim2022revisiting}{4}
-\bibcite{lee2020cross}{5}
-\bibcite{lin2025cross}{6}
-\bibcite{luo2023vulhawk}{7}
-\bibcite{ghidra2026repo}{8}
-\bibcite{naus2022formal}{9}
-\bibcite{petrosyan2024statista}{10}
-\bibcite{phu2019cfdvex}{11}
-\bibcite{qureshi2024systematic}{12}
-\bibcite{rahat2024cimalir}{13}
-\bibcite{raju2021survey}{14}
-\bibcite{rays2021idapro}{15}
-\bibcite{sebastianmilanesinovic2016avclass}{16}
-\bibcite{sinha2024iot}{17}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces 單架構與跨架構各設定 F1-macro 比較（mean $\pm $ std）}}{5}{}\protected@file@percent }
-\newlabel{tab:all-results}{{3}{5}{跨架構遷移學習比較}{}{}}
-\bibcite{virustotal2026}{18}
-\bibcite{wang2023retargeted}{19}
-\bibcite{yu2023cfg2vec}{20}
+\bibdata{reference}
+\bibcite{angr2026}{1}
+\bibcite{chaganti2022deep}{2}
+\bibcite{feng2016scalable}{3}
+\bibcite{ghidra2023pcode}{4}
+\bibcite{kim2022revisiting}{5}
+\bibcite{lee2020cross}{6}
+\bibcite{lin2025cross}{7}
+\bibcite{luo2023vulhawk}{8}
+\bibcite{ghidra2026repo}{9}
+\bibcite{naus2022formal}{10}
+\bibcite{petrosyan2024statista}{11}
+\bibcite{phu2019cfdvex}{12}
+\bibcite{qureshi2024systematic}{13}
+\bibcite{rahat2024cimalir}{14}
+\bibcite{raju2021survey}{15}
+\bibcite{ravi2022attention}{16}
+\@writefile{toc}{\contentsline {section}{\numberline {5.}結論}{5}{}\protected@file@percent }
+\bibcite{rays2021idapro}{17}
+\bibcite{redmond2018cross}{18}
+\bibcite{sebastianmilanesinovic2016avclass}{19}
+\bibcite{sinha2024iot}{20}
+\bibcite{vasan2020mthael}{21}
+\bibcite{virustotal2026}{22}
+\bibcite{wang2023retargeted}{23}
+\bibcite{wang2024learning}{24}
+\bibcite{yu2023cfg2vec}{25}
 \bibstyle{abbrv}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces 單架構與跨架構各設定 F1-macro 比較（mean $\pm $ std）}}{6}{}\protected@file@percent }
+\newlabel{tab:all-results}{{3}{6}{跨架構遷移學習比較}{}{}}
 \gdef \@abspage@last{6}

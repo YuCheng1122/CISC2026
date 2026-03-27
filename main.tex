@@ -82,7 +82,7 @@
 \begin{document}
 \begin{CJK*}{UTF8}{bkai}
 
-\title{\fontsize{16pt}{1}\selectfont\textbf{基於預訓練語言模型與圖神經網路之跨架構惡意軟體分析}}
+\title{\fontsize{16pt}{1}\selectfont\textbf{基於預訓練 P-Code 表示與圖域適應之少樣本跨架構 IoT 惡意軟體分類}}
 
 \author[1]{林禹丞}
 \author[2]{鄭欣明}
@@ -154,7 +154,11 @@
 % ============================
 \subsection{跨架構惡意軟體分析}
 
-靜態分析方法透過反組譯程式碼抽取特徵，無需執行二進位檔即可進行分析。早期方法以可印字串統計\cite{lee2020cross}或 Opcode N-gram\cite{raju2021survey}作為跨平台特徵，但前者語意稀疏，後者具架構相依性。圖形化方法（如 CFG、FCG）雖能捕捉程式結構\cite{feng2016scalable,yu2023cfg2vec}，卻對混淆攻擊較為脆弱。Unimap\cite{wang2023retargeted} 將指令視為自然語言 token，透過對比式學習學習多架構指令嵌入（MAIE），將不同 ISA 之語意等價指令映射至共享向量空間。VulHawk\cite{luo2023vulhawk} 則利用熵值識別二進位檔的編譯環境，並以字串與匯入函式校正函式嵌入，應用於跨架構漏洞偵測。
+靜態分析方法透過反組譯程式碼抽取特徵，無需執行二進位檔即可進行分析。早期方法以可印字串統計\cite{lee2020cross}或 Opcode/Byte N-gram\cite{raju2021survey}作為跨平台特徵，但前者語意稀疏，後者具架構相依性。圖形化方法（如 CFG、FCG）雖能捕捉程式結構\cite{feng2016scalable,yu2023cfg2vec}，卻對混淆攻擊較為脆弱。
+
+現有跨架構 IoT 惡意軟體偵測研究\cite{vasan2020mthael,chaganti2022deep,ravi2022attention}雖標榜「跨架構」，但其實驗設置多為將多個架構之資料混合後進行訓練與測試，並非以單一架構資料訓練、以另一架構資料測試的嚴格遷移場景。此類方法依賴 Byte N-gram、Opcode 序列等架構相依特徵，缺乏跨架構正規化處理，實際上是假設訓練時已見過各架構樣本，無法反映真實部署中目標架構資料匱乏的挑戰。本研究明確定義跨架構場景為：訓練資料僅來自單一 Source 架構，測試資料來自另一 Target 架構，並在此嚴格設定下進行評估。
+
+在指令層級的跨架構表示學習方面，Redmond 等人\cite{redmond2018cross}最早提出以自然語言處理方法學習跨架構指令嵌入，奠定了將不同 ISA 指令映射至共享語意空間的基礎。Unimap\cite{wang2023retargeted} 與 Wang 等人\cite{wang2024learning}在此基礎上，分別透過對比式學習與低資源架構適應進一步提升跨架構指令嵌入品質。VulHawk\cite{luo2023vulhawk} 則利用熵值識別二進位檔的編譯環境，並以字串與匯入函式校正函式嵌入，應用於跨架構漏洞偵測。上述方法的共同思路——以語義對齊取代架構特定特徵——與本研究採用 High P-Code 作為統一中介表示的動機一致。
 
 % ============================
 % 2.2 中間表示方法
@@ -194,7 +198,7 @@ Ghidra\cite{ghidra2026repo} 為 NSA 開發之開源逆向工程工具，其 P-Co
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=\textwidth]{fig/overview_method.png}
+\includegraphics[width=\textwidth]{fig/overview.png}
 \caption{所提跨架構惡意軟體偵測框架整體架構概覽。}
 \label{fig:method}
 \end{figure*}
@@ -204,7 +208,14 @@ Ghidra\cite{ghidra2026repo} 為 NSA 開發之開源逆向工程工具，其 P-Co
 % ============================
 \subsection{預訓練語言模型}
 
-本研究採用預訓練語言模型對 P-Code 指令序列進行語意編碼。透過在大規模程式碼語料庫上預訓練，模型能夠捕捉 P-Code 操作碼（opcode）與運算元（operand）之語意關係，生成豐富之指令嵌入表示。
+本研究採用 RoBERTa 預訓練語言模型對 P-Code 指令序列進行語意編碼。選用 RoBERTa 的關鍵原因在於 P-Code 序列的長度特性：High P-Code 為函式級別的中間表示，一個函式往往包含數十至數百條操作，對應的 token 序列遠長於一般程式語言的單行程式碼。如圖~\ref{fig:token_coverage} 所示，各架構下超過 85\% 的函式節點其 P-Code token 長度不超過 256，若將序列上限設為 512 則可覆蓋絕大多數函式，保留完整的指令語意脈絡。相較於僅能處理較短序列的模型，RoBERTa 的 Transformer 架構能透過自注意力機制捕捉整個函式內操作碼與運算元之間的長程依賴關係，有效建模 P-Code 的語意結構。本研究以 P-Code token 序列為輸入，在資料集上以遮罩語言模型（MLM）任務從頭預訓練，使模型學習 P-Code 特有的語法與語意規律，最終以 \texttt{[CLS]} token 的輸出作為函式節點的語意嵌入。
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{fig/token_length_coverage.png}
+\caption{各架構下函式節點 P-Code token 長度之分布。粗體數字為 max\_length=256 時的覆蓋率；設定 max\_length=512 可進一步涵蓋幾乎所有函式。}
+\label{fig:token_coverage}
+\end{figure}
 
 % ============================
 % 3.2 圖神經網路

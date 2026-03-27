@@ -7,6 +7,12 @@ Angr.
   \url{https://docs.angr.io/en/latest/advanced-topics/ir.html}, 2026.
 \newblock Accessed: Feb. 2026.
 
+\bibitem{chaganti2022deep}
+R.~Chaganti, V.~Ravi, and T.~D. Pham.
+\newblock Deep learning based cross architecture internet of things malware
+  detection and classification.
+\newblock {\em Computers \& Security}, 120:102779, 2022.
+
 \bibitem{feng2016scalable}
 Q.~Feng et~al.
 \newblock Scalable graph-based bug search for firmware images.
@@ -95,11 +101,25 @@ A.~D. Raju, I.~Y. Abualhaol, R.~S. Giagone, Y.~Zhou, and S.~Huang.
 \newblock A survey on cross-architectural {IoT} malware threat hunting.
 \newblock {\em IEEE Access}, 9:91686--91709, 2021.
 
+\bibitem{ravi2022attention}
+V.~Ravi, T.~D. Pham, and M.~Alazab.
+\newblock Attention-based multidimensional deep learning approach for
+  cross-architecture {IoMT} malware detection and classification in healthcare
+  cyber-physical systems.
+\newblock {\em IEEE Transactions on Computational Social Systems},
+  10(4):1597--1606, 2022.
+
 \bibitem{rays2021idapro}
 H.~Rays.
 \newblock {IDA Pro}.
 \newblock [Online]. Available: \url{https://www.hex-rays.com/products/ida/},
   May 2021.
+
+\bibitem{redmond2018cross}
+K.~Redmond, L.~Luo, and Q.~Zeng.
+\newblock A cross-architecture instruction embedding model for natural language
+  processing-inspired binary code analysis.
+\newblock {\em arXiv preprint arXiv:1812.09652}, 2018.
 
 \bibitem{sebastianmilanesinovic2016avclass}
 M.~Sebasti\'{a}n, R.~Rivera, P.~Kotzias, and J.~Caballero.
@@ -115,6 +135,12 @@ S.~Sinha.
   \url{https://iot-analytics.com/number-connected-iot-devices/}, 2024.
 \newblock Accessed: Feb. 2026.
 
+\bibitem{vasan2020mthael}
+D.~Vasan, M.~Alazab, S.~Venkatraman, J.~Akram, and Z.~Qin.
+\newblock {MTHAEL}: Cross-architecture {IoT} malware detection based on neural
+  network advanced ensemble learning.
+\newblock {\em IEEE Transactions on Computers}, 69(11):1654--1667, 2020.
+
 \bibitem{virustotal2026}
 {VirusTotal}.
 \newblock {VirusTotal} -- free online virus, malware and url scanner.
@@ -126,6 +152,13 @@ J.~Wang et~al.
 \newblock Can a deep learning model for one architecture be used for others?
   {Retargeted-Architecture} binary code analysis.
 \newblock In {\em Proc. 32nd USENIX Security Symp.}, pages 7339--7356, 2023.
+
+\bibitem{wang2024learning}
+J.~Wang, Q.~Zeng, and L.~Luo.
+\newblock Learning cross-architecture instruction embeddings for binary code
+  analysis in low-resource architectures.
+\newblock In {\em Findings of the Association for Computational Linguistics:
+  NAACL 2024}, pages 1320--1332, 2024.
 
 \bibitem{yu2023cfg2vec}
 S.-Y. Yu et~al.

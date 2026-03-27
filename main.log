@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.3.23)  27 MAR 2026 13:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.3.23)  27 MAR 2026 17:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -583,7 +583,10 @@ ai/m/n/10/82 ^^G\OT1/cmr/m/n/10 High P-Code \C70/bkai/m/n/10/51 i \C70/bkai/m/n
 /10/5c d \C70/bkai/bx/n/10/ff ^^Z\OT1/cmr/m/n/10 Low
  []
 
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
+
+]
 Underfull \hbox (badness 10000) in paragraph at lines 140--141
 []\C70/bkai/m/n/10/8a - ^^H\OT1/cmr/m/n/10 P-Code \C70/bkai/m/n/10/6b c \C70/bk
 ai/m/n/10/89 è \C70/bkai/m/n/10/53 ^^V \C70/bkai/m/n/10/52 M \C70/bkai/m/n/10/8
@@ -606,11 +609,8 @@ t/m/n/10 INDIRECT\C70/bkai/m/n/10/30 ^^A\OT1/cmtt/m/n/10 COPY\C70/bkai/m/n/10/3
 0 ^^A\OT1/cmtt/m/n/10 CAST
  []
 
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
-
-]
-Underfull \hbox (badness 1454) in paragraph at lines 171--172
+Underfull \hbox (badness 1454) in paragraph at lines 175--176
 \C70/bkai/m/n/10/51 v\OT1/cmr/m/n/10 P-Code \C70/bkai/m/n/10/4e - \C70/bkai/m/n
 /10/95 ì \C70/bkai/m/n/10/8a û ^^@ \C70/bkai/m/n/10/66 / \C70/bkai/m/n/10/4e ^^
 @ \C70/bkai/m/n/10/7a . \C70/bkai/m/n/10/66 ´ \C70/bkai/bx/n/10/5b X \C70/bkai/
@@ -618,33 +618,50 @@ m/n/10/56 h \C70/bkai/m/n/10/8f I \C70/bkai/m/n/10/63 € \C70/bkai/m/n/10/8a û ^
 ^@
  []
 
-<fig/high_pcode.png, id=161, 448.7967pt x 427.8384pt>
+<fig/high_pcode.png, id=162, 448.7967pt x 427.8384pt>
 File: fig/high_pcode.png Graphic file (type png)
 <use fig/high_pcode.png>
-Package pdftex.def Info: fig/high_pcode.png  used on input line 175.
+Package pdftex.def Info: fig/high_pcode.png  used on input line 179.
 (pdftex.def)             Requested size: 220.50887pt x 210.21713pt.
-<fig/overview_feature_extraction.png, id=163, 587.5551pt x 246.4407pt>
+<fig/overview_feature_extraction.png, id=164, 587.5551pt x 246.4407pt>
 File: fig/overview_feature_extraction.png Graphic file (type png)
 <use fig/overview_feature_extraction.png>
 Package pdftex.def Info: fig/overview_feature_extraction.png  used on input lin
-e 190.
+e 194.
 (pdftex.def)             Requested size: 220.50887pt x 92.48648pt.
-<fig/overview_method.png, id=164, 892.5345pt x 229.0959pt>
-File: fig/overview_method.png Graphic file (type png)
-<use fig/overview_method.png>
-Package pdftex.def Info: fig/overview_method.png  used on input line 197.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<fig/overview.png, id=165, 892.5345pt x 229.0959pt>
+File: fig/overview.png Graphic file (type png)
+<use fig/overview.png>
+Package pdftex.def Info: fig/overview.png  used on input line 201.
 (pdftex.def)             Requested size: 455.24411pt x 116.85133pt.
-[2 <./fig/high_pcode.png> <./fig/overview_feature_extraction.png>]
-Underfull \hbox (badness 1527) in paragraph at lines 236--237
+
+Underfull \vbox (badness 1728) has occurred while \output is active []
+
+ [2 <./fig/high_pcode.png>]
+<fig/token_length_coverage.png, id=172, 570.4512pt x 280.1667pt>
+File: fig/token_length_coverage.png Graphic file (type png)
+<use fig/token_length_coverage.png>
+Package pdftex.def Info: fig/token_length_coverage.png  used on input line 215.
+
+(pdftex.def)             Requested size: 220.50887pt x 108.29842pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 1527) in paragraph at lines 247--248
 \OT1/cmr/m/n/10 Ti\C70/bkai/bx/n/10/ff ^^H \C70/bkai/m/n/10/98 o \C70/bkai/bx/n
 /10/5b X\OT1/cmr/m/n/10 16,303 MiB\C70/bkai/bx/n/10/ff 	 \C70/bkai/bx/n/10/4e K
  \C70/bkai/bx/n/10/5d Â \C70/bkai/bx/n/10/4f \ \C70/bkai/bx/n/10/7a Ÿ \C70/bkai
-/bx/n/10/ff ^^L \C70/bkai/bx/n/10/4f \ \C70/bkai/bx/n/10/69 m \C70/bkai/m/n/10/
-7c ˚ \C70/bkai/bx/n/10/7d q
+/bx/n/10/ff ^^L \C70/bkai/bx/n/10/4f \ \C70/bkai/bx/n/10/69 m \C70/bkai/bx/n/10
+/7c ˚ \C70/bkai/bx/n/10/7d q
  []
 
 
-Underfull \hbox (badness 3735) in paragraph at lines 238--239
+Underfull \hbox (badness 3735) in paragraph at lines 249--250
 []\C70/bkai/bx/n/10/98 ^^P[][] \C70/bkai/bx/n/10/8a ^^S[][] \C70/bkai/bx/n/10/7
 d Ù[][] \C70/bkai/bx/n/10/8a û[][] ^^@[][] \C70/bkai/bx/n/10/6a ![][] \C70/bkai
 /bx/n/10/57 ã[][] \C70/bkai/bx/n/10/ff ^^H[][]\OT1/cmr/bx/n/10 RoBERTa\C70/bkai
@@ -653,16 +670,16 @@ d Ù[][] \C70/bkai/bx/n/10/8a û[][] ^^@[][] \C70/bkai/bx/n/10/6a ![][] \C70/bkai
  []
 
 
-Underfull \hbox (badness 1931) in paragraph at lines 240--241
+Underfull \hbox (badness 1931) in paragraph at lines 251--252
 \OT1/cmr/m/n/10 Pool-ing\C70/bkai/bx/n/10/ff 	 \C70/bkai/bx/n/10/30 ^^B\OT1/cmr
 /m/n/10 Adam \C70/bkai/bx/n/10/51 * \C70/bkai/bx/n/10/53 ^^V \C70/bkai/m/n/10/5
 6 h \C70/bkai/bx/n/10/ff ^^L \C70/bkai/bx/n/10/5b x \C70/bkai/m/n/10/7f “ \C70/
-bkai/m/n/10/73 á\OT1/cmr/m/n/10 0.001\C70/bkai/bx/n/10/ff ^^L \C70/bkai/bx/n/10
-/62 y
+bkai/bx/n/10/73 á\OT1/cmr/m/n/10 0.001\C70/bkai/bx/n/10/ff ^^L \C70/bkai/bx/n/1
+0/62 y
  []
 
 
-Underfull \hbox (badness 3657) in paragraph at lines 240--241
+Underfull \hbox (badness 3657) in paragraph at lines 251--252
 \OT1/cmr/m/n/10 ping\C70/bkai/bx/n/10/ff ^^H\OT1/cmr/m/n/10 patience=15\C70/bka
 i/bx/n/10/ff 	 ^^L \C70/bkai/m/n/10/64 ^^M \C70/bkai/m/n/10/59 1 \C70/bkai/bx/n
 /10/51 ˝ \C70/bkai/bx/n/10/5f ^^O \C70/bkai/bx/n/10/70 ∫\OT1/cmr/m/n/10 Cross E
@@ -670,22 +687,22 @@ n-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
+Underfull \hbox (badness 10000) in paragraph at lines 259--260
 []\C70/bkai/bx/n/10/67 , \C70/bkai/m/n/10/78 ^^T \C70/bkai/bx/n/10/7a v \C70/bk
-ai/bx/n/10/65 6 \C70/bkai/bx/n/10/96 ∆ \C70/bkai/bx/n/10/6d µ \C70/bkai/m/n/10/
-84 À\OT1/cmr/m/n/10 ARM-32\C70/bkai/bx/n/10/30 ^^A\OT1/cmr/m/n/10 ARM-64\C70/bk
-ai/bx/n/10/30 ^^A\OT1/cmr/m/n/10 Intel
+ai/bx/n/10/65 6 \C70/bkai/bx/n/10/96 ∆ \C70/bkai/bx/n/10/6d µ \C70/bkai/bx/n/10
+/84 À\OT1/cmr/m/n/10 ARM-32\C70/bkai/bx/n/10/30 ^^A\OT1/cmr/m/n/10 ARM-64\C70/b
+kai/bx/n/10/30 ^^A\OT1/cmr/m/n/10 Intel
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 248--249
+Underfull \hbox (badness 10000) in paragraph at lines 259--260
 \OT1/cmr/m/n/10 i386\C70/bkai/bx/n/10/30 ^^A\OT1/cmr/m/n/10 MIPS\C70/bkai/bx/n/
 10/30 ^^A\OT1/cmr/m/n/10 PowerPC\C70/bkai/bx/n/10/ff ^^H\OT1/cmr/m/n/10 PPC\C70
 /bkai/bx/n/10/ff 	 \C70/bkai/bx/n/10/53  \OT1/cmr/m/n/10 AMD x86-
  []
 
 
-Underfull \hbox (badness 1383) in paragraph at lines 248--249
+Underfull \hbox (badness 1383) in paragraph at lines 259--260
 \OT1/cmr/m/n/10 64 \C70/bkai/bx/n/10/51 q m \C70/bkai/bx/n/10/7a . \C70/bkai/bx
 /n/10/67 ∂ \C70/bkai/bx/n/10/69 À \C70/bkai/bx/n/10/4e K\OT1/cmr/m/n/10 IoT \C7
 0/bkai/bx/n/10/60 · \C70/bkai/bx/n/10/61 ^^O \C70/bkai/bx/n/10/8e ﬂ \C70/bkai/b
@@ -695,50 +712,50 @@ x/n/10/9a ‘ \C70/bkai/bx/n/10/6a # \C70/bkai/bx/n/10/67 , \C70/bkai/bx/n/10/30
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <8.5> not available
-(Font)              size <8> substituted on input line 256.
+(Font)              size <8> substituted on input line 267.
 
-LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 257.
+LaTeX Font Info:    Calculating math sizes for size <8.5> on input line 268.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.25> not available
-(Font)              size <5> substituted on input line 257.
+(Font)              size <5> substituted on input line 268.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <8.5> not available
-(Font)              size <8> substituted on input line 257.
+(Font)              size <8> substituted on input line 268.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.25> not available
-(Font)              size <5> substituted on input line 257.
+(Font)              size <5> substituted on input line 268.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <8.5> not available
-(Font)              size <8> substituted on input line 257.
+(Font)              size <8> substituted on input line 268.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.25> not available
-(Font)              size <5> substituted on input line 257.
+(Font)              size <5> substituted on input line 268.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8.5> on input line 257.
+(Font)              <8.5> on input line 268.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5.94997> on input line 257.
+(Font)              <5.94997> on input line 268.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <4.25> on input line 257.
+(Font)              <4.25> on input line 268.
 
 LaTeX Font Warning: Font shape `OT1/cmr/bx/n' in size <8.5> not available
-(Font)              size <8> substituted on input line 259.
+(Font)              size <8> substituted on input line 270.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 289.
-[3 <./fig/overview_method.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 323--324
+(Font)              <5> on input line 300.
+[3 <./fig/overview_feature_extraction.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 334--335
 []\OT1/cmr/bx/n/10 Few-shot Baseline\C70/bkai/bx/n/10/ff ^^H[][]\OT1/cmr/bx/n/1
 0 RF\C70/bkai/bx/n/10/ff 	[][] ^^Z \C70/bkai/bx/n/10/4e ^^M \C70/bkai/bx/n/10/4
 f ^^?
  []
 
 
-Underfull \hbox (badness 2781) in paragraph at lines 323--324
+Underfull \hbox (badness 2781) in paragraph at lines 334--335
 \C70/bkai/bx/n/10/75 (\OT1/cmr/m/n/10 Source \C70/bkai/bx/n/10/8c « \C70/bkai/b
 x/n/10/65 ô \C70/bkai/bx/n/10/ff ^^L \C70/bkai/bx/n/10/50 ≈ \C70/bkai/bx/n/10/5
 f û\OT1/cmr/m/n/10 Target \C70/bkai/bx/n/10/67 ∂ \C70/bkai/bx/n/10/69 À \C70/bk
@@ -747,129 +764,158 @@ ai/bx/n/10/6b œ \C70/bkai/bx/n/10/50  \C70/bkai/bx/n/10/5b ∂ \C70/bkai/bx/n/10
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 323--324
+Underfull \hbox (badness 10000) in paragraph at lines 334--335
 \C70/bkai/bx/n/10/53 ÷\OT1/cmr/m/n/10 5 \C70/bkai/bx/n/10/7b F \C70/bkai/bx/n/1
 0/6a # \C70/bkai/bx/n/10/67 , \C70/bkai/bx/n/10/ff ^^L \C70/bkai/m/n/10/5c ^^M\
 OT1/cmr/m/n/10 GNN Em-bed-ding \C70/bkai/bx/n/10/50 Z\OT1/cmr/m/n/10 Mean
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 323--324
+Underfull \hbox (badness 10000) in paragraph at lines 334--335
 \OT1/cmr/m/n/10 Pool-ing \C70/bkai/bx/n/10/5f å \C70/bkai/bx/n/10/8a ^^S \C70/b
 kai/bx/n/10/7d Ù\OT1/cmr/m/n/10 Random For-est\C70/bkai/bx/n/10/ff ^^H\OT1/cmr/
 m/n/10 200 \C70/bkai/bx/n/10/68 ı
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 329.
-(./main.bbl
+(Font)              <7> on input line 340.
+[4 <./fig/overview.png> <./fig/token_length_coverage.png>] (./main.bbl
 Underfull \hbox (badness 4899) in paragraph at lines 4--9
 \OT1/cmr/m/n/10 able: $\OT1/cmtt/m/n/10 https : / / docs . angr . io / en / lat
 est /
  []
 
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 17--22
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--28
 \OT1/cmr/m/n/10 Avail-able: $\OT1/cmtt/m/n/10 https : / / ghidra . re / ghidra 
 _
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--22
+Underfull \hbox (badness 10000) in paragraph at lines 23--28
 \OT1/cmtt/m/n/10 docs / languages / html / pcoderef . html$\OT1/cmr/m/n/10 ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 51--56
+Underfull \hbox (badness 10000) in paragraph at lines 57--62
 \OT1/cmr/m/n/10 line]. Avail-able: $\OT1/cmtt/m/n/10 https : / / github . com /
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 51--56
+Underfull \hbox (badness 10000) in paragraph at lines 57--62
 \OT1/cmtt/m/n/10 NationalSecurityAgency / ghidra$\OT1/cmr/m/n/10 .  Ac-
  []
 
 
-Underfull \hbox (badness 6741) in paragraph at lines 64--70
+Underfull \hbox (badness 6741) in paragraph at lines 70--76
 []\OT1/cmr/m/n/10 A. Pet-rosyan.  Dis-tri-bu-tion of cy-ber-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--70
+Underfull \hbox (badness 10000) in paragraph at lines 70--76
 \OT1/cmr/m/n/10 at-tacks across world-wide in-dus-tries in
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--70
+Underfull \hbox (badness 10000) in paragraph at lines 70--76
 \OT1/cmtt/m/n/10 / / www . statista . com / statistics / 1315805 /
  []
 
 
-Overfull \hbox (9.57274pt too wide) in paragraph at lines 64--70
+Overfull \hbox (9.57274pt too wide) in paragraph at lines 70--76
 \OT1/cmtt/m/n/10 cyber-[]attacks-[]top-[]industries-[]worldwide/$\OT1/cmr/m/n/1
 0 ,
  []
 
 
-Underfull \hbox (badness 4792) in paragraph at lines 79--85
+Underfull \hbox (badness 4792) in paragraph at lines 85--91
 \OT1/cmr/m/n/10 A. Nazir, A. Wa-ja-hat, F. Ul-lah, and
  []
 
 
-Underfull \hbox (badness 1024) in paragraph at lines 87--92
+Underfull \hbox (badness 1024) in paragraph at lines 93--98
 \OT1/cmr/m/n/10 IoT mal-ware clus-ter-ing us-ing in-ter-me-di-ate
  []
 
 
-Underfull \hbox (badness 1163) in paragraph at lines 87--92
+Underfull \hbox (badness 1163) in paragraph at lines 93--98
 \OT1/cmr/m/n/10 rep-re-sen-ta-tion.  In \OT1/cmr/m/it/10 Proc. IEEE 14th An-
  []
 
 
-Underfull \hbox (badness 1117) in paragraph at lines 94--97
+Underfull \hbox (badness 1117) in paragraph at lines 100--103
 []\OT1/cmr/m/n/10 A. D. Raju, I. Y. Abual-haol, R. S. Gi-
  []
 
 
-Underfull \hbox (badness 2600) in paragraph at lines 99--103
+Underfull \hbox (badness 1910) in paragraph at lines 105--111
+[]\OT1/cmr/m/n/10 V. Ravi, T. D. Pham, and M. Alazab.
+ []
+
+[5]
+Underfull \hbox (badness 2600) in paragraph at lines 113--117
 \OT1/cmtt/m/n/10 / / www . hex-[]rays . com / products / ida/$\OT1/cmr/m/n/10 ,
  May
  []
 
 
-Underfull \hbox (badness 1558) in paragraph at lines 111--117
+Underfull \hbox (badness 10000) in paragraph at lines 119--123
+\OT1/cmr/m/n/10 cross-architecture in-struc-tion em-bed-ding
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 119--123
+\OT1/cmr/m/n/10 model for nat-u-ral lan-guage processing-
+ []
+
+
+Underfull \hbox (badness 1558) in paragraph at lines 131--137
 []\OT1/cmr/m/n/10 S. Sinha.  State of IoT 2025: Num-ber
  []
 
 
-Underfull \hbox (badness 6001) in paragraph at lines 111--117
+Underfull \hbox (badness 6001) in paragraph at lines 131--137
 \OT1/cmr/m/n/10 of con-nected IoT de-vices grow-ing 14%
  []
 
 
-Underfull \hbox (badness 1521) in paragraph at lines 111--117
+Underfull \hbox (badness 1521) in paragraph at lines 131--137
 \OT1/cmr/m/n/10 to 21.1 bil-lion glob-ally.  [On-line]. Avail-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--117
+Underfull \hbox (badness 10000) in paragraph at lines 131--137
 \OT1/cmr/m/n/10 able: $\OT1/cmtt/m/n/10 https : / / iot-[]analytics . com /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 111--117
+Underfull \hbox (badness 10000) in paragraph at lines 131--137
 \OT1/cmtt/m/n/10 number-[]connected-[]iot-[]devices/$\OT1/cmr/m/n/10 , 2024.
  []
 
-[5]
-Underfull \hbox (badness 2134) in paragraph at lines 125--129
+
+Underfull \hbox (badness 3407) in paragraph at lines 139--143
+[]\OT1/cmr/m/n/10 D. Vasan, M. Alazab, S. Venka-tra-man,
+ []
+
+
+Underfull \hbox (badness 1924) in paragraph at lines 139--143
+\OT1/cmr/m/n/10 architecture IoT mal-ware de-tec-tion based
+ []
+
+
+Underfull \hbox (badness 2495) in paragraph at lines 139--143
+\OT1/cmr/m/n/10 ing.  \OT1/cmr/m/it/10 IEEE Trans-ac-tions on Com-put-ers\OT1/c
+mr/m/n/10 ,
+ []
+
+
+Underfull \hbox (badness 2134) in paragraph at lines 151--155
 \OT1/cmr/m/n/10 for one ar-chi-tec-ture be used for oth-ers?
  []
 
-) [6
-
-] (./main.aux)
+) [6] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -881,13 +927,13 @@ LaTeX Font Warning: Size substitutions with differences
 
  ) 
 Here is how much of TeX's memory you used:
- 9581 strings out of 475589
- 147260 string characters out of 5782860
- 1978975 words of memory out of 5000000
- 31369 multiletter control sequences out of 15000+600000
- 608826 words of font info for 212 fonts, out of 8000000 for 9000
+ 9662 strings out of 475589
+ 148719 string characters out of 5782860
+ 1992975 words of memory out of 5000000
+ 31442 multiletter control sequences out of 15000+600000
+ 609718 words of font info for 215 fonts, out of 8000000 for 9000
  309 hyphenation exceptions out of 8191
- 59i,11n,65p,1067b,1676s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 59i,11n,65p,1067b,1695s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/tommy/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600
 pk></usr/share/texmf/fonts/type1/arphic/bkaiu/bkaiu30.pfb></usr/share/texmf/fon
 ts/type1/arphic/bkaiu/bkaiu4e.pfb></usr/share/texmf/fonts/type1/arphic/bkaiu/bk
@@ -954,10 +1000,10 @@ sfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on main.pdf (6 pages, 1580211 bytes).
+Output written on main.pdf (6 pages, 1803603 bytes).
 PDF statistics:
- 559 PDF objects out of 1000 (max. 8388607)
+ 561 PDF objects out of 1000 (max. 8388607)
  286 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 324 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 329 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -344,19 +344,19 @@ x86\_64 & $0.9653 \pm 0.0154$ & $0.8163 \pm 0.0314$ \\
 \multicolumn{1}{l}{\textbf{Source $\rightarrow$ Target}} & \textbf{Lower Bound} & \textbf{Our Method} \\
 \midrule
 x86\_64 $\rightarrow$ ARM-32  & $0.4659$ & $\mathbf{0.9249 \pm 0.0156}$ \\
-x86\_64 $\rightarrow$ Intel   & $0.8483$ & (待補) \\
+x86\_64 $\rightarrow$ Intel   & $0.8483$ & $\mathbf{0.9178 \pm 0.0040}$ \\
 x86\_64 $\rightarrow$ MIPS    & $0.2228$ & $\mathbf{0.8806 \pm 0.0288}$ \\
-ARM-32  $\rightarrow$ Intel   & $0.7800$ & (待補) \\
-ARM-32  $\rightarrow$ MIPS    & $0.5271$ & (待補) \\
-ARM-32  $\rightarrow$ x86\_64 & $0.6723$ & (待補) \\
-Intel   $\rightarrow$ ARM-32  & $0.6993$ & (待補) \\
-Intel   $\rightarrow$ MIPS    & $0.4398$ & (待補) \\
-Intel   $\rightarrow$ x86\_64 & $0.9185$ & (待補) \\
+ARM-32  $\rightarrow$ Intel   & $0.7800$ & $\mathbf{0.8916 \pm 0.0147}$ \\
+ARM-32  $\rightarrow$ MIPS    & $0.5271$ & $\mathbf{0.9214 \pm 0.0295}$ \\
+ARM-32  $\rightarrow$ x86\_64 & $0.6723$ & $\mathbf{0.8939 \pm 0.0061}$ \\
+Intel   $\rightarrow$ ARM-32  & $0.6993$ & $\mathbf{0.9323 \pm 0.0104}$ \\
+Intel   $\rightarrow$ MIPS    & $0.4398$ & $\mathbf{0.8915 \pm 0.0133}$ \\
+Intel   $\rightarrow$ x86\_64 & $0.9185$ & $\mathbf{0.9491 \pm 0.0076}$ \\
 \bottomrule
 \end{tabular}
 \end{table*}
 
-Upper Bound 顯示各架構在同架構場景下均達 F1 $>$ 0.94，確立模型能力之上界。Lower Bound 則揭示跨架構特徵分佈差距之嚴峻程度：以 x86\_64 訓練直接測試於 MIPS 僅達 0.2228，測試於 ARM-32 為 0.4659，顯示純深度語意特徵在跨架構場景下仍面臨顯著的分佈偏移問題。Few-shot Baseline 在無需 Source 資料的條件下，僅以每類 5 筆目標域樣本即可達 F1 約 0.80，反映 GNN Embedding 所學得之語意表示本身已具備一定的跨架構遷移能力，可作為資料極度稀缺場景之有效基準。Our Method 結合 Source 全量資料與目標域少量標記進行域適應，ARM-32 達 0.9249、MIPS 達 0.8806，較 Lower Bound 分別提升 0.46 與 0.66，亦超越 Few-shot Baseline，驗證域適應框架在跨架構遷移場景下之顯著效益。
+Upper Bound 顯示各架構在同架構場景下均達 F1 $>$ 0.94，確立模型能力之上界。Lower Bound 則揭示跨架構特徵分佈差距之嚴峻程度：以 x86\_64 訓練直接測試於 MIPS 僅達 0.2228，測試於 ARM-32 為 0.4659，顯示純深度語意特徵在跨架構場景下仍面臨顯著的分佈偏移問題。Few-shot Baseline 在無需 Source 資料的條件下，僅以每類 5 筆目標域樣本即可達 F1 約 0.80，反映 GNN Embedding 所學得之語意表示本身已具備一定的跨架構遷移能力，可作為資料極度稀缺場景之有效基準。Our Method 結合 Source 全量資料與目標域少量標記進行域適應，九個跨架構對之 F1-macro 均達 0.88 以上，最高為 Intel $\rightarrow$ x86\_64 之 0.9491，較各對應 Lower Bound 平均提升約 0.29，亦全面超越 Few-shot Baseline，驗證域適應框架在跨架構遷移場景下之顯著效益。
 
 
 % ============================

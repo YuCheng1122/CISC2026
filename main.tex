@@ -103,9 +103,9 @@
 % ============================
 \begin{abstract}
 
-物聯網（IoT）裝置廣泛運行於異質指令集架構（ISA），使得現有惡意軟體分析方法難以跨平台通用。本文提出一種以 Ghidra High P-Code 為統一中介表示之跨架構 IoT 惡意軟體偵測框架，透過結合預訓練語言模型（Pre-trained Language Model, PLM）與圖注意力網路（Graph Attention Network, GAT），同時捕捉 P-Code 指令序列之語意特徵與函式呼叫圖之結構特徵。有別於先前工作以統計特徵搭配隨機森林進行分類，本研究證實純統計特徵在跨架構場景下存在顯著性能衰退，並以深度語意表示加以改善。實驗結果顯示，單架構場景下各架構 F1-macro 均超過 94\%；跨架構場景下，直接遷移（Lower Bound）最低僅達 0.19，引入域適應後（Our Method）提升至 0.88 以上，驗證本框架之有效性。
+物聯網（IoT）裝置廣泛運行於異質指令集架構（ISA），使得現有惡意軟體分析方法難以跨平台通用。本文提出一種以 Ghidra High P-Code 為統一中介表示之跨架構 IoT 惡意軟體偵測框架，透過結合預訓練語言模型（Pre-trained Language Model, PLM）與圖注意力網路（Graph Attention Network, GAT），同時捕捉 P-Code 指令序列之語意特徵與函式呼叫圖之結構特徵，並引入域適應（Domain Adaptation）機制，在目標架構僅有少量標記樣本的條件下縮小跨架構特徵分佈差距。實驗結果顯示，單架構場景下各架構 F1-macro 均超過 94\%；跨架構場景下，直接遷移（Lower Bound）最低僅達 0.19，引入域適應後（Our Method）提升至 0.88 以上，驗證本框架之有效性。
 
-\textbf{關鍵字：}惡意軟體分析、跨架構、Ghidra P-Code、預訓練語言模型、圖神經網路
+\textbf{關鍵字：}跨架構惡意軟體分析、Ghidra P-Code、預訓練語言模型、圖神經網路、域適應
 \end{abstract}
 
 
@@ -114,20 +114,20 @@
 % ============================
 \section{前言}
 
-物聯網（IoT）生態系統正快速擴張，全球連網裝置數量於 2025 年已達 211 億，預計 2030 年將突破 400 億\cite{sinha2024iot}。這些裝置廣泛部署於智慧家庭、工業控制、醫療照護等場域，並運行於 x86、ARM、MIPS、PowerPC 等異質指令集架構（ISA）。然而，受限於硬體資源與開發成本，IoT 裝置普遍缺乏完善的安全防護，成為攻擊者鎖定的目標\cite{raju2021survey,qureshi2024systematic}。IoT 裝置遭受的攻擊事件從 2018 年的 3,270 萬次急升至 2022 年的 1.1229 億次\cite{petrosyan2024statista}，資安威脅日益嚴峻。
+物聯網（IoT）生態系統正快速擴張，全球連網裝置數量於 2025 年已達 211 億\cite{sinha2024iot}，廣泛部署於智慧家庭、工業控制、醫療照護等場域。不同於桌機或行動裝置集中於少數 ISA，IoT 裝置橫跨 x86、ARM、MIPS、PowerPC 等異質指令集架構（ISA），且普遍缺乏完善的安全防護，IoT 裝置遭受的攻擊事件從 2018 年的 3,270 萬次急升至 2022 年的 1.1229 億次\cite{petrosyan2024statista}，資安威脅日益嚴峻\cite{qureshi2024systematic}。
 
-現有惡意軟體偵測系統大多依賴架構特定的資料集與手工特徵，僅適用於 ARM、x86 等主流架構，對 MIPS、RISC-V 等樣本稀少之平台形成偵測盲點\cite{lin2025cross}。靜態分析方法常採用可印字串（Printable String）\cite{lee2020cross}、Opcode/Byte N-gram，以及控制流程圖（CFG）或函式呼叫圖（FCG）\cite{feng2016scalable,yu2023cfg2vec}等特徵，但前者具架構相依性，後者語意表達能力有限且易受混淆攻擊影響。為此，近年研究轉向利用平台無關的中間表示（Intermediate Representation, IR），以跨越 ISA 差異\cite{phu2019cfdvex,rahat2024cimalir}。
+IoT 惡意軟體的跨架構偵測面臨根本性挑戰：相同的惡意行為在不同 ISA 下呈現截然不同的指令特徵，使得針對單一架構訓練的模型無法直接遷移。更現實的困難在於，惡意軟體樣本高度集中於 x86-64 與 ARM-32 等少數主流架構，其他低資源架構幾乎無標記資料可用，要求系統必須在極度不均衡的資料條件下仍能有效泛化。
 
-在中間表示的選擇上，IDA Pro Microcode\cite{rays2021idapro}、Angr VexIR\cite{angr2026}與 Ghidra P-Code\cite{ghidra2023pcode,ghidra2026repo} 均為主流方案。Ghidra 為美國國家安全局（NSA）開發之開源逆向工程工具，其 P-Code 分為 Low P-Code 與 High P-Code 兩層：Low P-Code 由組合語言直接轉譯而來，保留各架構之低階操作；High P-Code 則經過去編譯分析，進一步消除暫存器差異、重建資料流與控制流，使不同 ISA 下語意等價的函式趨於一致，如圖~\ref{fig:pcode} 所示\cite{naus2022formal}。然而，P-Code 並非完全架構無關，編譯器最佳化與連結策略仍會影響跨架構 IR 之一致性\cite{lin2025cross}。
-
-我們先前的工作\cite{lin2025cross}以 Ghidra P-Code 為基礎，抽取 14 維統計特徵並搭配隨機森林分類器進行跨架構惡意軟體偵測，結果顯示單架構準確率可達 99.9\%，但跨架構場景下性能大幅衰退（如以 MIPS 訓練、ARM 測試時僅達 50.2\%），揭示了純統計特徵在語意對齊上的根本局限。本研究在此基礎上，進一步引入預訓練語言模型（PLM）對 High P-Code 指令序列進行深度語意編碼，並以圖注意力網路（GAT）建模函式呼叫圖之拓樸結構，以彌補統計特徵之語意缺口。此外，針對現實場景中目標架構標記資料匱乏的問題，本研究引入域適應（Domain Adaptation）機制，僅需目標架構每類少量樣本即可有效縮小跨架構特徵分佈差距，提升遷移能力。
+現有跨架構 IoT 惡意軟體研究大多聚焦於惡意軟體\textbf{偵測}（二元分類：惡意 vs 良性）\cite{alhanahnah2018efficient,vasan2020mthael,chaganti2022deep,ravi2022attention}，而非更細粒度的\textbf{家族分類}（Family Classification）。本研究針對跨架構惡意軟體家族分類問題，以 Ghidra High P-Code 為統一中介表示，以預訓練語言模型（PLM）對 P-Code 指令序列進行深度語意編碼、以圖注意力網路（GAT）建模函式呼叫圖結構，並引入域適應（Domain Adaptation）機制，在目標架構僅有少量標記樣本的條件下縮小跨架構特徵分佈差距。
 
 % ============================
 % 1.1 動機
 % ============================
 \subsection{動機}
 
-儘管以 P-Code 等中間表示作為跨架構分析基礎已有初步成效，先前研究\cite{lin2025cross}指出：（1）P-Code 衍生之統計特徵仍保留 ISA 層級的潛在偏差，不同架構下指令展開方式、呼叫慣例與暫存器模型的差異會影響特徵分佈；（2）編譯器最佳化（如 \texttt{-Os}）會進一步降低跨架構函式相似度，加大遷移難度；（3）純結構特徵必須輔以語意豐富的表示，才能有效對齊不同架構下的語意等價行為。此外，在實際部署場景中，目標架構往往僅有少量或零標記樣本可用，如何在資料稀缺條件下維持有效的跨架構偵測，是本研究的核心動機之一。
+跨架構 IoT 惡意軟體\textbf{家族分類}的核心動機源自三項現實挑戰。首先，\textbf{ISA 異質性}使得相同惡意行為在不同架構下呈現截然不同的指令特徵：不同 ISA 採用完全不同的指令集，基於原始指令特徵學得的判別知識無法直接遷移至其他架構。其次，\textbf{資料分佈高度不均}：Alhanahnah 等人\cite{alhanahnah2018efficient}的實驗顯示，IoT 惡意軟體樣本高度集中於 x86-64 與 ARM-32 兩種架構，其他架構（如 SPARC、PowerPC）樣本數量極為稀少；攻擊者卻有能力將同一惡意軟體家族自動化編譯至所有主流架構，意味著分析系統必須能從少數來源架構有效泛化至低資源目標架構。第三，\textbf{偵測不等於分類}：現有研究大多僅解決二元偵測問題（惡意 vs 良性），無法識別攻擊家族與意圖；而跨架構惡意軟體家族分類難度更高，需同時克服 ISA 差異與類別間語意對齊的雙重挑戰。
+
+上述挑戰共同指向：有效的跨架構 IoT 惡意軟體家族分類需要（1）以 IR 消除低階 ISA 差異；（2）以深度語意表示捕捉操作碼序列的家族判別語意，取代統計特徵；（3）以域適應機制對齊跨架構特徵分佈，應對目標架構資料稀缺的實際部署場景。
 
 % ============================
 % 1.2 貢獻
@@ -136,11 +136,9 @@
 
 本文之主要貢獻如下：
 \begin{itemize}
-  \item 以先前統計特徵方法\cite{lin2025cross}之跨架構性能衰退為出發點，系統性地分析其語意缺口，並提出以 High P-Code 深度語意嵌入加以改善的框架。
-  \item 設計 P-Code 正規化前處理流程，移除 Thunk 函式與外部函式，並過濾 \texttt{MULTIEQUAL}、\texttt{INDIRECT}、\texttt{COPY}、\texttt{CAST} 等干擾性操作碼，提升跨架構 IR 一致性。
-  \item 結合 RoBERTa 預訓練語言模型與雙層圖注意力網路（GAT），同時捕捉 P-Code 指令序列之語意特徵與函式呼叫圖之結構特徵。
-  \item 引入域適應機制，在目標架構僅有少量標記樣本的條件下，有效縮小跨架構特徵分佈差距，大幅提升遷移性能。
-  \item 在涵蓋 ARM-32、Intel、MIPS、x86\_64 等多架構之 IoT 惡意軟體資料集上進行系統性實驗，以 10 組隨機種子確保結果穩健，驗證所提框架相較於各基準方法之有效性。
+  \item \textbf{架構無關特徵設計：}以 High P-Code 之操作碼序列為語意輸入，捨棄含架構相依資訊之 varnode 位址空間，並移除 Thunk 與外部函式雜訊，提升跨架構 IR 一致性；在此基礎上以 RoBERTa 從頭預訓練捕捉操作碼語意，並結合 GAT 建模函式呼叫圖之拓樸結構。
+  \item \textbf{少樣本域適應：}引入圖域適應機制，在目標架構僅有每類 5 筆標記樣本的條件下，有效縮小跨架構特徵分佈差距，大幅提升遷移性能。
+  \item \textbf{嚴格跨架構評估：}有別於現有研究\cite{vasan2020mthael,chaganti2022deep,ravi2022attention}將多架構混合訓練的做法，本研究明確定義訓練僅來自單一 Source 架構、測試來自另一 Target 架構的嚴格場景，並在涵蓋 ARM-32、Intel、MIPS、x86-64 之資料集上以 10 組隨機種子驗證框架有效性。
 \end{itemize}
 
 
@@ -154,30 +152,61 @@
 % ============================
 \subsection{跨架構惡意軟體分析}
 
-靜態分析方法透過反組譯程式碼抽取特徵，無需執行二進位檔即可進行分析。早期方法以可印字串統計\cite{lee2020cross}或 Opcode/Byte N-gram\cite{raju2021survey}作為跨平台特徵，但前者語意稀疏，後者具架構相依性。圖形化方法（如 CFG、FCG）雖能捕捉程式結構\cite{feng2016scalable,yu2023cfg2vec}，卻對混淆攻擊較為脆弱。
+在真正具備跨架構能力的特徵方面，可印字串（Printable Strings）因直接來自二進位檔案中的可讀字元序列，不依賴特定 ISA 的指令集，天然具備架構無關性：Lee 等人與 Cheng 等人\cite{lee2020cross,cheng2025lightweight}均以可印字串作為 IoT 惡意軟體分類特徵，驗證其在跨架構場景下的可遷移性。然而可印字串語意稀疏，且易受字串混淆攻擊影響。以平台無關中間表示（IR）為基礎的方法是另一類真正架構無關的特徵來源：CFDVex\cite{phu2019cfdvex} 以 VEX IR 結合 CFG 特徵進行跨架構 IoT 惡意軟體偵測；CIMALiR\cite{rahat2024cimalir} 以 IR 進行跨平台惡意軟體聚類；在跨架構指令表示學習方面，Redmond 等人\cite{redmond2018cross}最早提出以 NLP 方法學習跨架構指令嵌入，Unimap\cite{wang2023retargeted} 與 Wang 等人\cite{wang2024learning}進一步以對比學習與低資源架構適應提升嵌入品質。
 
-現有跨架構 IoT 惡意軟體偵測研究\cite{vasan2020mthael,chaganti2022deep,ravi2022attention}雖標榜「跨架構」，但其實驗設置多為將多個架構之資料混合後進行訓練與測試，並非以單一架構資料訓練、以另一架構資料測試的嚴格遷移場景。此類方法依賴 Byte N-gram、Opcode 序列等架構相依特徵，缺乏跨架構正規化處理，實際上是假設訓練時已見過各架構樣本，無法反映真實部署中目標架構資料匱乏的挑戰。本研究明確定義跨架構場景為：訓練資料僅來自單一 Source 架構，測試資料來自另一 Target 架構，並在此嚴格設定下進行評估。
-
-在指令層級的跨架構表示學習方面，Redmond 等人\cite{redmond2018cross}最早提出以自然語言處理方法學習跨架構指令嵌入，奠定了將不同 ISA 指令映射至共享語意空間的基礎。Unimap\cite{wang2023retargeted} 與 Wang 等人\cite{wang2024learning}在此基礎上，分別透過對比式學習與低資源架構適應進一步提升跨架構指令嵌入品質。VulHawk\cite{luo2023vulhawk} 則利用熵值識別二進位檔的編譯環境，並以字串與匯入函式校正函式嵌入，應用於跨架構漏洞偵測。上述方法的共同思路——以語義對齊取代架構特定特徵——與本研究採用 High P-Code 作為統一中介表示的動機一致。
+相對地，部分研究\cite{vasan2020mthael,chaganti2022deep,ravi2022attention}雖標榜「跨架構」，但實驗設置為將多個架構資料混合後共同訓練與測試，本質上仍依賴 Byte N-gram、Opcode 序列等架構相依特徵，訓練時已見過各架構樣本，並非以單一 Source 架構訓練、另一 Target 架構測試的嚴格遷移場景。此類設置無法反映真實部署中目標架構樣本匱乏的挑戰，其「跨架構」性能存在高估。本研究明確採用嚴格遷移定義，並在此設定下評估各方法的真實泛化能力。
 
 % ============================
-% 2.2 中間表示方法
+% 2.2 中間表示與 Ghidra P-Code
 % ============================
-\subsection{中間表示方法}
+\subsection{中間表示與 Ghidra P-Code}
 
-利用平台無關的中間表示（IR）是消除 ISA 差異的主要策略之一。CFDVex\cite{phu2019cfdvex} 以 VEX IR 為基礎，結合 CFG 特徵進行 IoT 惡意軟體偵測。CIMALiR\cite{rahat2024cimalir} 以 IR 進行跨平台 IoT 惡意軟體聚類。我們先前的工作\cite{lin2025cross}以 Ghidra P-Code 抽取 14 維統計特徵，利用 BinKit 2.0 資料集\cite{kim2022revisiting}驗證跨架構函式相似性，並以隨機森林進行分類，發現單架構準確率高達 99.9\%，但跨架構場景下性能嚴重衰退，揭示純統計特徵之語意對齊局限。
+利用平台無關的中間表示（IR）是消除 ISA 差異的主要策略之一。CFDVex\cite{phu2019cfdvex} 以 VEX IR 為基礎，結合 CFG 特徵進行 IoT 惡意軟體偵測。CIMALiR\cite{rahat2024cimalir} 以 IR 進行跨平台 IoT 惡意軟體聚類。VulHawk\cite{luo2023vulhawk} 則以 IR 為基礎應用於跨架構函式相似性分析與漏洞偵測。我們先前的工作\cite{lin2025cross}以 Ghidra P-Code 抽取 14 維統計特徵，利用 BinKit 2.0 資料集\cite{kim2022revisiting}驗證跨架構函式相似性，並以隨機森林進行分類，發現單架構準確率高達 99.9\%，但跨架構場景下性能嚴重衰退，揭示純統計特徵之語意對齊局限。
 
-% ============================
-% 2.3 中間語言 Ghidra P-Code
-% ============================
-\subsection{中間語言 Ghidra P-Code}
+Ghidra\cite{ghidra2026repo} 為 NSA 開發之開源逆向工程工具，其 P-Code 是一種暫存器轉換語言（Register Transfer Language, RTL）。相關文件與討論較為有限，目前較完整的研究為 Naus 等人\cite{naus2022formal}針對 P-Code 所進行的形式語意分析，並指出官方文件存在不完整與指令描述不夠精確等問題；其研究亦指出 P-Code 並非設計來保證相同 Source Code 在不同架構下必然產生完全相同的指令序列。
 
-Ghidra\cite{ghidra2026repo} 為 NSA 開發之開源逆向工程工具，其 P-Code 中間語言是一種暫存器轉換語言（Register Transfer Language, RTL），分為 Low P-Code 與 High P-Code 兩層。Low P-Code 由組合語言直接轉譯，每條機器指令展開為數個 P-Code 操作，明確描述側效應與隱式狀態變更。High P-Code 則經去編譯階段產生，包含 CFG 重建、堆疊框架分析、暫存器變數識別與資料流分析，進一步抽象化架構細節。如圖~\ref{fig:pcode} 所示，對同一 C 語言函式而言，MIPS 與 ARM 組合語言雖在暫存器用法、指令順序與呼叫慣例上差異顯著，但其 High P-Code 表示幾乎一致，均收斂為相同的 \texttt{COPY} 與 \texttt{RETURN} 操作。P-Code 之設計原則包括：顯式記憶體模型（所有記憶體存取透過 \texttt{LOAD}/\texttt{STORE} 完成）、統一暫存位址空間，以及確定性語意（每個操作對抽象機器狀態具有精確定義之效果）\cite{naus2022formal}。
+P-Code 分為 Low P-Code 與 High P-Code 兩層。Low P-Code 由 SLEIGH（Ghidra 用於描述處理器指令集語意的 DSL）將機器碼直接展開，每條機器指令對應數條 P-Code 操作，保留各架構暫存器名稱與低階副作用，具架構相依性。High P-Code 則由 Ghidra 反編譯器在 Low P-Code 之上進行資料流分析（包含 SSA 轉換、死碼消除、堆疊框架重建與變數識別）後產生，消除架構特定的暫存器細節。本研究以 High P-Code 作為特徵抽取的基礎。如圖~\ref{fig:pcode} 所示，對同一 C 語言函式而言，MIPS、ARM 與 x86-64 的 High P-Code 幾乎一致，均收斂為相同的 \texttt{COPY} 與 \texttt{RETURN} 操作。
+
+每條 P-Code 指令由三個部分組成，其核心概念如下：
+
+\begin{itemize}
+  \item \textbf{Varnode：}暫存器、記憶體位置與常數值的統一抽象，以三元組 $\langle\textit{space},\,\textit{offset},\,\textit{size}\rangle$ 唯一識別。\textit{space} 為具名位址空間（\texttt{ram}、\texttt{register}、\texttt{const}、\texttt{unique}），\textit{offset} 為該空間內的位元組索引，\textit{size} 為位元組數。varnode 本身不攜帶型別，型別由所在操作的語意隱式決定（整數採二補數、布林為單位元組 0/1、浮點依 IEEE 754）。
+  \item \textbf{Address Space：}P-Code 對記憶體與處理器資源的統一索引模型，定義為可定址的連續位元組序列。典型空間包含 \texttt{ram}（主記憶體）、\texttt{register}（通用暫存器，偏移量由 SLEIGH 靜態定義，具架構相依性）、\texttt{const}（立即數，偏移量本身即為數值）與 \texttt{unique}（臨時中間值）。
+  \item \textbf{Opcode：}定義操作類型，決定對 varnode 執行的運算，操作的精度由輸入/輸出 varnode 的大小決定，而非 opcode 本身。P-Code 共定義 71 個操作碼，其中 Raw P-Code 64 個（直接由機器指令轉譯）、Additional P-Code 7 個（由後續分析引入，包含 SSA $\phi$-node \texttt{MULTIEQUAL}、間接副作用 \texttt{INDIRECT}，以及指標與型別操作），依功能分類如表~\ref{tab:pcode_opcodes} 所示。
+\end{itemize}
+
+\begin{table}[tp]
+\centering
+\caption{P-Code 操作碼分類（共 71 個）}
+\label{tab:pcode_opcodes}
+\renewcommand{\arraystretch}{1.1}
+\setlength{\tabcolsep}{4pt}
+\footnotesize
+\newcommand{\op}[1]{{\ttfamily\hyphenchar\font=`/\relax #1}}%
+\begin{tabular}{p{1.5cm}p{6.2cm}}
+\hline
+\noalign{\vspace{2pt}}
+\textbf{類別} & \textbf{操作碼} \\
+\noalign{\vspace{2pt}}
+\hline
+資料搬移   & \op{COPY, LOAD, STORE, PIECE, SUBPIECE} \\
+控制流程   & \op{BRANCH, CBRANCH, BRANCHIND, CALL, CALLIND, RETURN} \\
+整數算術   & \op{INT\_ADD/SUB/MULT/DIV/SDIV/REM/SREM/2COMP/NEGATE} \\
+整數比較   & \op{INT\_EQUAL/NOTEQUAL/LESS/SLESS/LESSEQUAL/SLESSEQUAL/CARRY/SCARRY/SBORROW} \\
+整數位元   & \op{INT\_AND/OR/XOR/LEFT/RIGHT/SRIGHT/ZEXT/SEXT/POPCOUNT/LZCOUNT} \\
+浮點運算   & \op{FLOAT\_ADD/SUB/MULT/DIV/NEG/ABS/SQRT/CEIL/FLOOR/ROUND/EQUAL/NOTEQUAL/LESS/LESSEQUAL/NAN} \\
+布林與轉換 & \op{BOOL\_NEGATE/XOR/AND/OR, INT2FLOAT, FLOAT2FLOAT, TRUNC, CALLOTHER, CPOOLREF, NEW} \\
+\hline
+Additional & \op{MULTIEQUAL, INDIRECT, PTRADD, PTRSUB, CAST, INSERT, EXTRACT} \\
+\noalign{\vspace{2pt}}
+\hline
+\end{tabular}
+\end{table}
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=\columnwidth]{fig/high_pcode.png}
-\caption{同一 C 函式在 MIPS 與 ARM 架構下，從組合語言經 Low P-Code 轉換為 High P-Code 之過程。High P-Code 消除了架構間的語法差異，使語意等價函式趨於一致表示。}
+\caption{同一 C 函式在 MIPS、ARM 與 x86-64 架構下，從組合語言經 Low P-Code 轉換為 High P-Code 之過程。High P-Code 消除了架構間的語法差異，使語意等價函式趨於一致表示。}
 \label{fig:pcode}
 \end{figure}
 
@@ -187,7 +216,7 @@ Ghidra\cite{ghidra2026repo} 為 NSA 開發之開源逆向工程工具，其 P-Co
 % ============================
 \section{方法}
 
-本節介紹所提方法之整體架構，包含預訓練語言模型、圖神經網路與對比式學習三個主要模組。圖~\ref{fig:method} 為整體框架概覽，圖~\ref{fig:feature} 為特徵抽取流程。
+本節介紹所提方法之整體架構，包含 P-Code 特徵表示、預訓練語言模型、圖注意力網路與域適應四個主要模組。圖~\ref{fig:method} 為整體框架概覽，圖~\ref{fig:feature} 為特徵抽取流程。輸入為 ELF 二進位檔，經 Ghidra 反編譯產生 High P-Code 後，抽取各函式之 opcode 序列作為語意輸入（捨棄含架構相依資訊的 varnode），並以函式呼叫關係建構呼叫圖。RoBERTa 對各節點的 opcode 序列進行語意編碼，GAT 聚合呼叫圖拓樸結構，最終以域適應機制在少量目標域標記樣本的條件下對齊跨架構特徵分佈。
 
 \begin{figure}[h]
 \centering

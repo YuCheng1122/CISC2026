@@ -1,11 +1,11 @@
 \begin{thebibliography}{10}
 
-\bibitem{angr2026}
-Angr.
-\newblock angr documentation.
-\newblock [Online]. Available:
-  \url{https://docs.angr.io/en/latest/advanced-topics/ir.html}, 2026.
-\newblock Accessed: Feb. 2026.
+\bibitem{alhanahnah2018efficient}
+M.~Alhanahnah, Q.~Lin, Q.~Yan, N.~Zhang, and Z.~Chen.
+\newblock Efficient signature generation for classifying cross-architecture
+  {IoT} malware.
+\newblock In {\em Proc. IEEE Conf. Communications and Network Security (CNS)},
+  pages 1--9, 2018.
 
 \bibitem{chaganti2022deep}
 R.~Chaganti, V.~Ravi, and T.~D. Pham.
@@ -13,18 +13,12 @@ R.~Chaganti, V.~Ravi, and T.~D. Pham.
   detection and classification.
 \newblock {\em Computers \& Security}, 120:102779, 2022.
 
-\bibitem{feng2016scalable}
-Q.~Feng et~al.
-\newblock Scalable graph-based bug search for firmware images.
-\newblock In {\em Proc. ACM SIGSAC Conf. Computer and Communications Security
-  (CCS)}, pages 480--491, 2016.
-
-\bibitem{ghidra2023pcode}
-Ghidra.
-\newblock {P-Code} reference manual.
-\newblock [Online]. Available:
-  \url{https://ghidra.re/ghidra_docs/languages/html/pcoderef.html}, 2023.
-\newblock Accessed: Feb. 2026.
+\bibitem{cheng2025lightweight}
+Y.-S. Cheng, T.~Ban, S.-M. Cheng, T.~Takahashi, and W.-C. Teng.
+\newblock Lightweight, architecture-agnostic {IoT} malware detection via
+  printable strings.
+\newblock In {\em Proc. 2025 Workshop on Recent Advances in Resilient and
+  Trustworthy MAchine learning-driveN Systems}, pages 24--33, 2025.
 
 \bibitem{kim2022revisiting}
 D.~Kim et~al.
@@ -96,11 +90,6 @@ M.~A. Rahat et~al.
 \newblock In {\em Proc. IEEE 14th Annual Computing and Communication Workshop
   and Conference (CCWC)}, pages 0460--0466, 2024.
 
-\bibitem{raju2021survey}
-A.~D. Raju, I.~Y. Abualhaol, R.~S. Giagone, Y.~Zhou, and S.~Huang.
-\newblock A survey on cross-architectural {IoT} malware threat hunting.
-\newblock {\em IEEE Access}, 9:91686--91709, 2021.
-
 \bibitem{ravi2022attention}
 V.~Ravi, T.~D. Pham, and M.~Alazab.
 \newblock Attention-based multidimensional deep learning approach for
@@ -108,12 +97,6 @@ V.~Ravi, T.~D. Pham, and M.~Alazab.
   cyber-physical systems.
 \newblock {\em IEEE Transactions on Computational Social Systems},
   10(4):1597--1606, 2022.
-
-\bibitem{rays2021idapro}
-H.~Rays.
-\newblock {IDA Pro}.
-\newblock [Online]. Available: \url{https://www.hex-rays.com/products/ida/},
-  May 2021.
 
 \bibitem{redmond2018cross}
 K.~Redmond, L.~Luo, and Q.~Zeng.
@@ -159,12 +142,5 @@ J.~Wang, Q.~Zeng, and L.~Luo.
   analysis in low-resource architectures.
 \newblock In {\em Findings of the Association for Computational Linguistics:
   NAACL 2024}, pages 1320--1332, 2024.
-
-\bibitem{yu2023cfg2vec}
-S.-Y. Yu et~al.
-\newblock {Cfg2vec}: Hierarchical graph neural network for cross-architectural
-  software reverse engineering.
-\newblock In {\em Proc. IEEE/ACM 45th Int. Conf. Software Engineering: Software
-  Engineering in Practice (ICSE-SEIP)}, pages 281--291, 2023.
 
 \end{thebibliography}

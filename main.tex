@@ -116,16 +116,16 @@
 
 物聯網（IoT）生態系統正快速擴張，全球連網裝置數量於 2025 年已達 211 億\cite{sinha2024iot}，廣泛部署於智慧家庭、工業控制、醫療照護等場域。不同於桌機或行動裝置集中於少數 ISA，IoT 裝置橫跨 x86、ARM、MIPS、PowerPC 等異質指令集架構（ISA），且普遍缺乏完善的安全防護，IoT 裝置遭受的攻擊事件從 2018 年的 3,270 萬次急升至 2022 年的 1.1229 億次\cite{petrosyan2024statista}，資安威脅日益嚴峻\cite{qureshi2024systematic}。
 
-IoT 惡意軟體的跨架構偵測面臨根本性挑戰：相同的惡意行為在不同 ISA 下呈現截然不同的指令特徵，使得針對單一架構訓練的模型無法直接遷移。更現實的困難在於，惡意軟體樣本高度集中於 x86-64 與 ARM-32 等少數主流架構，其他低資源架構幾乎無標記資料可用，要求系統必須在極度不均衡的資料條件下仍能有效泛化。
+設計 IoT 惡意軟體偵測機制面臨兩項主要挑戰：第一，有別於傳統的 PC 和行動裝置惡意軟體，IoT 惡意軟體的一項獨特特徵是能夠感染多種 CPU 架構（包括 ARM、MIPS、x86 等）的設備。因此，我們需要設計一種跨架構的分析方法，以偵測與分類 IoT 惡意軟體 \cite{alhanahnah2018efficient}；第二，相同的惡意行為在不同 ISA 下呈現截然不同的指令特徵，使得基於 Byte Sequence 與 Opcode 這些特徵的方法，針對單一架構所訓練的架構無法直接遷移。更現實的困難在於，惡意軟體樣本高度集中於 x86-64 與 ARM-32 等少數主流架構，其他低資源架構幾乎無標記資料可用。
 
-現有跨架構 IoT 惡意軟體研究大多聚焦於惡意軟體\textbf{偵測}（二元分類：惡意 vs 良性）\cite{alhanahnah2018efficient,vasan2020mthael,chaganti2022deep,ravi2022attention}，而非更細粒度的\textbf{家族分類}（Family Classification）。本研究針對跨架構惡意軟體家族分類問題，以 Ghidra High P-Code 為統一中介表示，以預訓練語言模型（PLM）對 P-Code 指令序列進行深度語意編碼、以圖注意力網路（GAT）建模函式呼叫圖結構，並引入域適應（Domain Adaptation）機制，在目標架構僅有少量標記樣本的條件下縮小跨架構特徵分佈差距。
+本研究針對跨架構惡意軟體家族分析問題，以 Ghidra High P-Code 作為特徵，以預訓練語言模型（PLM）對 P-Code 指令序列進行深度語意編碼、以圖注意力網路（GAT）建模函式呼叫圖結構，並引入域適應（Domain Adaptation）機制，在目標架構僅有少量標記樣本的條件下縮小跨架構特徵分佈差距。
 
 % ============================
 % 1.1 動機
 % ============================
 \subsection{動機}
 
-跨架構 IoT 惡意軟體\textbf{家族分類}的核心動機源自三項現實挑戰。首先，\textbf{ISA 異質性}使得相同惡意行為在不同架構下呈現截然不同的指令特徵：不同 ISA 採用完全不同的指令集，基於原始指令特徵學得的判別知識無法直接遷移至其他架構。其次，\textbf{資料分佈高度不均}：Alhanahnah 等人\cite{alhanahnah2018efficient}的實驗顯示，IoT 惡意軟體樣本高度集中於 x86-64 與 ARM-32 兩種架構，其他架構（如 SPARC、PowerPC）樣本數量極為稀少；攻擊者卻有能力將同一惡意軟體家族自動化編譯至所有主流架構，意味著分析系統必須能從少數來源架構有效泛化至低資源目標架構。第三，\textbf{偵測不等於分類}：現有研究大多僅解決二元偵測問題（惡意 vs 良性），無法識別攻擊家族與意圖；而跨架構惡意軟體家族分類難度更高，需同時克服 ISA 差異與類別間語意對齊的雙重挑戰。
+跨架構 IoT 惡意軟體分析的核心動機源自三項現實挑戰。首先，\textbf{ISA 異質性}使得相同惡意行為在不同架構下呈現截然不同的指令特徵：不同 ISA 採用完全不同的指令集，基於原始指令特徵學得的判別知識無法直接遷移至其他架構。其次，\textbf{資料分佈高度不均}：Alhanahnah 等人\cite{alhanahnah2018efficient}的實驗顯示，IoT 惡意軟體樣本高度集中於 x86-64 與 ARM-32 兩種架構，其他架構（如 SPARC、PowerPC）樣本數量極為稀少；攻擊者卻有能力將同一惡意軟體家族自動化編譯至所有主流架構，意味著分析系統必須能從少數來源架構有效泛化至低資源目標架構。第三，\textbf{偵測不等於分類}：現有研究大多僅解決二元偵測問題（惡意 vs 良性），無法識別攻擊家族與意圖；而跨架構惡意軟體家族分類難度更高，需同時克服 ISA 差異與類別間語意對齊的雙重挑戰。
 
 上述挑戰共同指向：有效的跨架構 IoT 惡意軟體家族分類需要（1）以 IR 消除低階 ISA 差異；（2）以深度語意表示捕捉操作碼序列的家族判別語意，取代統計特徵；（3）以域適應機制對齊跨架構特徵分佈，應對目標架構資料稀缺的實際部署場景。
 
@@ -154,7 +154,7 @@ IoT 惡意軟體的跨架構偵測面臨根本性挑戰：相同的惡意行為�
 
 在真正具備跨架構能力的特徵方面，可印字串（Printable Strings）因直接來自二進位檔案中的可讀字元序列，不依賴特定 ISA 的指令集，天然具備架構無關性：Lee 等人與 Cheng 等人\cite{lee2020cross,cheng2025lightweight}均以可印字串作為 IoT 惡意軟體分類特徵，驗證其在跨架構場景下的可遷移性。然而可印字串語意稀疏，且易受字串混淆攻擊影響。以平台無關中間表示（IR）為基礎的方法是另一類真正架構無關的特徵來源：CFDVex\cite{phu2019cfdvex} 以 VEX IR 結合 CFG 特徵進行跨架構 IoT 惡意軟體偵測；CIMALiR\cite{rahat2024cimalir} 以 IR 進行跨平台惡意軟體聚類；在跨架構指令表示學習方面，Redmond 等人\cite{redmond2018cross}最早提出以 NLP 方法學習跨架構指令嵌入，Unimap\cite{wang2023retargeted} 與 Wang 等人\cite{wang2024learning}進一步以對比學習與低資源架構適應提升嵌入品質。
 
-相對地，部分研究\cite{vasan2020mthael,chaganti2022deep,ravi2022attention}雖標榜「跨架構」，但實驗設置為將多個架構資料混合後共同訓練與測試，本質上仍依賴 Byte N-gram、Opcode 序列等架構相依特徵，訓練時已見過各架構樣本，並非以單一 Source 架構訓練、另一 Target 架構測試的嚴格遷移場景。此類設置無法反映真實部署中目標架構樣本匱乏的挑戰，其「跨架構」性能存在高估。本研究明確採用嚴格遷移定義，並在此設定下評估各方法的真實泛化能力。
+相對地，部分研究\cite{vasan2020mthael,chaganti2022deep,ravi2022attention}雖標榜跨架構，但實驗設置為將多個架構資料混合後共同訓練與測試，本質上仍依賴 Byte 、Opcode 序列等架構相依特徵，訓練時已見過各架構樣本，並非以單一 Source 架構訓練、另一 Target 架構測試的場景進行實驗。此類設置無法反映真實世界環境所面臨的挑戰，其跨架構的表現存在高估，誤導了之後的跨架構惡意軟體分析研究。
 
 % ============================
 % 2.2 中間表示與 Ghidra P-Code
@@ -172,7 +172,7 @@ P-Code 分為 Low P-Code 與 High P-Code 兩層。Low P-Code 由 SLEIGH（Ghidra
 \begin{itemize}
   \item \textbf{Varnode：}暫存器、記憶體位置與常數值的統一抽象，以三元組 $\langle\textit{space},\,\textit{offset},\,\textit{size}\rangle$ 唯一識別。\textit{space} 為具名位址空間（\texttt{ram}、\texttt{register}、\texttt{const}、\texttt{unique}），\textit{offset} 為該空間內的位元組索引，\textit{size} 為位元組數。varnode 本身不攜帶型別，型別由所在操作的語意隱式決定（整數採二補數、布林為單位元組 0/1、浮點依 IEEE 754）。
   \item \textbf{Address Space：}P-Code 對記憶體與處理器資源的統一索引模型，定義為可定址的連續位元組序列。典型空間包含 \texttt{ram}（主記憶體）、\texttt{register}（通用暫存器，偏移量由 SLEIGH 靜態定義，具架構相依性）、\texttt{const}（立即數，偏移量本身即為數值）與 \texttt{unique}（臨時中間值）。
-  \item \textbf{Opcode：}定義操作類型，決定對 varnode 執行的運算，操作的精度由輸入/輸出 varnode 的大小決定，而非 opcode 本身。P-Code 共定義 71 個操作碼，其中 Raw P-Code 64 個（直接由機器指令轉譯）、Additional P-Code 7 個（由後續分析引入，包含 SSA $\phi$-node \texttt{MULTIEQUAL}、間接副作用 \texttt{INDIRECT}，以及指標與型別操作），依功能分類如表~\ref{tab:pcode_opcodes} 所示。
+  \item \textbf{P-Code Operation：}定義操作類型，決定對 varnode 執行的運算，操作的精度由輸入/輸出 varnode 的大小決定，而非 opcode 本身。P-Code 共定義 71 個操作碼，其中 Raw P-Code 64 個（直接由機器指令轉譯）、Additional P-Code 7 個（由後續分析引入，包含 SSA $\phi$-node \texttt{MULTIEQUAL}、間接副作用 \texttt{INDIRECT}，以及指標與型別操作），依功能分類如表~\ref{tab:pcode_opcodes} 所示。
 \end{itemize}
 
 \begin{table}[tp]

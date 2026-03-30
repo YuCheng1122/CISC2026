@@ -114,10 +114,12 @@
 % ============================
 \section{前言}
 
-物聯網（IoT）生態系統正快速擴張，全球連網裝置數量於 2025 年已達 211 億\cite{sinha2024iot}，廣泛部署於智慧家庭、工業控制、醫療照護等場域。不同於桌機或行動裝置集中於少數 ISA，IoT 裝置橫跨 x86、ARM、MIPS、PowerPC 等異質指令集架構（ISA），且普遍缺乏完善的安全防護，IoT 裝置遭受的攻擊事件從 2018 年的 3,270 萬次急升至 2022 年的 1.1229 億次\cite{petrosyan2024statista}，資安威脅日益嚴峻\cite{qureshi2024systematic}。
+物聯網（IoT）生態系統正快速擴張，全球連網裝置數量於 2025 年已達 211 億\cite{sinha2024iot}，廣泛部署於智慧家庭、工業控制、醫療照護等場域。不同於桌機或行動裝置集中於少數指令集架構（Instruction Set Architecture, ISA），IoT 裝置橫跨 x86、ARM、MIPS、PowerPC 等異質 ISA，且普遍缺乏完善的安全防護，導致 IoT 裝置遭受的攻擊事件從 2018 年的 3,270 萬次急升至 2022 年的 1.1229 億次\cite{petrosyan2024statista}，資安威脅日益嚴峻\cite{qureshi2024systematic}。
 
-設計 IoT 惡意軟體分析機制面臨兩項主要挑戰：第一，有別於傳統的 PC 和行動裝置惡意軟體，IoT 惡意軟體的一項獨特特徵是能夠感染多種 CPU 架構（包括 ARM、MIPS、x86 等）的設備。因此，我們需要設計一種跨架構的分析方法，以偵測與分類 IoT 惡意軟體 \cite{alhanahnah2018efficient}；第二，相同的惡意行為在不同 ISA 下呈現截然不同的指令特徵，使得基於 Byte Sequence 與 Opcode 這些特徵的方法，針對單一架構所訓練的架構無法直接遷移。更現實的困難在於，惡意軟體樣本高度集中於 x86-64 與 ARM-32 等少數主流架構，其他低資源架構幾乎無標記資料可用。基於上述挑戰，有效的跨架構惡意軟體分析需要與架構無關的特徵，如:Printable String, IR, 統計特徵。
+設計 IoT 惡意軟體分析機制面臨兩項主要挑戰：第一，正因 IoT 生態系統橫跨高度異質的 ISA，惡意軟體作者得以針對同一家族同時編譯多架構版本，感染更廣泛的裝置；因此，分析方法必須具備跨架構通用性，而非僅針對單一 ISA 設計 \cite{alhanahnah2018efficient}；第二，相同的惡意行為在不同 ISA 下呈現截然不同的指令特徵，使得基於 Byte Sequence 與 Opcode 這些特徵的方法，針對單一架構所訓練的模型無法直接遷移。更現實的困難在於，惡意軟體樣本高度集中於 x86-64 與 ARM-32 等少數主流架構，其他低資源架構幾乎無標記資料可用。基於上述挑戰，有效的跨架構惡意軟體分析需要與架構無關的特徵，如：Printable String、中間表示（Intermediate Representation, IR）、統計特徵。
 本研究針對跨架構惡意軟體家族分析問題，以 Ghidra High P-Code 作為特徵，以預訓練語言模型（PLM）對 P-Code 指令序列進行深度語意編碼、以圖注意力網路（GAT）建模函式呼叫圖結構，並引入域適應（Domain Adaptation）機制，在目標架構僅有少量標記樣本的條件下縮小跨架構特徵分佈差距。
+
+本研究之核心研究問題（Research Question, RQ）為：\textbf{我們該如何設計一個與架構無關（architecture-independent）的惡意軟體分析框架，使其在異質 CPU 架構（heterogeneous CPU architectures）中仍能保持高效能？}
 
 本文之主要貢獻如下：
 \begin{itemize}

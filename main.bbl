@@ -7,6 +7,12 @@ M.~Alhanahnah, Q.~Lin, Q.~Yan, N.~Zhang, and Z.~Chen.
 \newblock In {\em Proc. IEEE Conf. Communications and Network Security (CNS)},
   pages 1--9, 2018.
 
+\bibitem{blitzer2006domain}
+J.~Blitzer, R.~McDonald, and F.~Pereira.
+\newblock Domain adaptation with structural correspondence learning.
+\newblock In {\em Proceedings of the 2006 conference on empirical methods in
+  natural language processing}, pages 120--128, 2006.
+
 \bibitem{chaganti2022deep}
 R.~Chaganti, V.~Ravi, and T.~D. Pham.
 \newblock Deep learning based cross architecture internet of things malware
@@ -20,12 +26,33 @@ Y.-S. Cheng, T.~Ban, S.-M. Cheng, T.~Takahashi, and W.-C. Teng.
 \newblock In {\em Proc. 2025 Workshop on Recent Advances in Resilient and
   Trustworthy MAchine learning-driveN Systems}, pages 24--33, 2025.
 
-\bibitem{kim2022revisiting}
-D.~Kim et~al.
-\newblock Revisiting binary code similarity analysis using interpretable
-  feature engineering and lessons learned.
-\newblock {\em IEEE Transactions on Software Engineering}, 49(4):1661--1682,
-  2022.
+\bibitem{devlin2019bert}
+J.~Devlin, M.-W. Chang, K.~Lee, and K.~Toutanova.
+\newblock Bert: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock In {\em Proceedings of the 2019 conference of the North American
+  chapter of the association for computational linguistics: human language
+  technologies, volume 1 (long and short papers)}, pages 4171--4186, 2019.
+
+\bibitem{ghidra2023pcode}
+Ghidra.
+\newblock {P-Code} reference manual.
+\newblock [Online]. Available:
+  \url{https://ghidra.re/ghidra_docs/languages/html/pcoderef.html}, 2023.
+\newblock Accessed: Feb. 2026.
+
+\bibitem{greco2025cross}
+C.~Greco and M.~Ianni.
+\newblock A cross-architecture malware detection approach based on intermediate
+  representation.
+\newblock {\em Journal of Information Security and Applications}, 93:104117,
+  2025.
+
+\bibitem{hadsell2006dimensionality}
+R.~Hadsell, S.~Chopra, and Y.~LeCun.
+\newblock Dimensionality reduction by learning an invariant mapping.
+\newblock In {\em 2006 IEEE computer society conference on computer vision and
+  pattern recognition (CVPR'06)}, volume~2, pages 1735--1742. IEEE, 2006.
 
 \bibitem{lee2020cross}
 Y.-T. Lee et~al.
@@ -34,6 +61,14 @@ Y.-T. Lee et~al.
 \newblock In {\em Proc. IEEE 19th Int. Conf. Trust, Security and Privacy in
   Computing and Communications (TrustCom)}, pages 775--784, 2020.
 
+\bibitem{li2025binary}
+X.~Li, J.~Sun, Y.~Zhang, X.~Yin, and S.~Liu.
+\newblock Binary similarity detection based on intermediate representation
+  graph fusion.
+\newblock In {\em Proceedings of the 2025 4th International Conference on
+  Cryptography, Network Security and Communication Technology}, pages 106--114,
+  2025.
+
 \bibitem{lin2025cross}
 Y.-C. Lin et~al.
 \newblock Cross-architecture {IoT} malware analysis using {P-Code} intermediate
@@ -41,11 +76,23 @@ Y.-C. Lin et~al.
 \newblock In {\em Proc. Workshop on Recent Advances in Resilient and
   Trustworthy MAchine learning-driveN Systems (RTMAN)}, pages 45--50, 2025.
 
+\bibitem{liu2019roberta}
+Y.~Liu, M.~Ott, N.~Goyal, J.~Du, M.~Joshi, D.~Chen, O.~Levy, M.~Lewis,
+  L.~Zettlemoyer, and V.~Stoyanov.
+\newblock Roberta: A robustly optimized bert pretraining approach.
+\newblock {\em arXiv preprint arXiv:1907.11692}, 2019.
+
 \bibitem{luo2023vulhawk}
 Z.~Luo et~al.
 \newblock {VulHawk}: Cross-architecture vulnerability detection with
   entropy-based binary code search.
 \newblock In {\em Proc. NDSS}, 2023.
+
+\bibitem{motiian2017unified}
+S.~Motiian, M.~Piccirilli, D.~A. Adjeroh, and G.~Doretto.
+\newblock Unified deep supervised domain adaptation and generalization.
+\newblock In {\em Proceedings of the IEEE international conference on computer
+  vision}, pages 5715--5725, 2017.
 
 \bibitem{ghidra2026repo}
 {National Security Agency}.
@@ -110,6 +157,13 @@ M.~Sebasti\'{a}n, R.~Rivera, P.~Kotzias, and J.~Caballero.
 \newblock In {\em Proc. Int. Symp. Research in Attacks, Intrusions, and
   Defenses (RAID)}, pages 230--253, 2016.
 
+\bibitem{shimodaira2000improving}
+H.~Shimodaira.
+\newblock Improving predictive inference under covariate shift by weighting the
+  log-likelihood function.
+\newblock {\em Journal of statistical planning and inference}, 90(2):227--244,
+  2000.
+
 \bibitem{sinha2024iot}
 S.~Sinha.
 \newblock State of {IoT} 2025: Number of connected {IoT} devices growing 14\%
@@ -118,11 +172,31 @@ S.~Sinha.
   \url{https://iot-analytics.com/number-connected-iot-devices/}, 2024.
 \newblock Accessed: Feb. 2026.
 
+\bibitem{sun2016deep}
+B.~Sun and K.~Saenko.
+\newblock Deep coral: Correlation alignment for deep domain adaptation.
+\newblock In {\em European conference on computer vision}, pages 443--450.
+  Springer, 2016.
+
 \bibitem{vasan2020mthael}
 D.~Vasan, M.~Alazab, S.~Venkatraman, J.~Akram, and Z.~Qin.
 \newblock {MTHAEL}: Cross-architecture {IoT} malware detection based on neural
   network advanced ensemble learning.
 \newblock {\em IEEE Transactions on Computers}, 69(11):1654--1667, 2020.
+
+\bibitem{velivckovic2017graph}
+P.~Veli{\v{c}}kovi{\'c}, G.~Cucurull, A.~Casanova, A.~Romero, P.~Lio, and
+  Y.~Bengio.
+\newblock Graph attention networks.
+\newblock {\em arXiv preprint arXiv:1710.10903}, 2017.
+
+\bibitem{venkatakeerthy2025vexir2vec}
+S.~VenkataKeerthy, S.~Banerjee, S.~Dey, Y.~Andaluri, R.~PS, S.~Kalyanasundaram,
+  F.~M. Quint{\~a}o~Pereira, and R.~Upadrasta.
+\newblock Vexir2vec: an architecture-neutral embedding framework for binary
+  similarity.
+\newblock {\em ACM Transactions on Software Engineering and Methodology},
+  34(8):1--54, 2025.
 
 \bibitem{virustotal2026}
 {VirusTotal}.
